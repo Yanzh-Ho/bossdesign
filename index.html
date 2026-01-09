@@ -13,27 +13,33 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
 
     <style>
         /* ========================================
-           全域變數
+           全域變數 & 字體系統
            ======================================== */
         :root {
-            --primary-color: #2E8B57;   /* 永續綠 */
-            --secondary-color: #4169E1; /* 誠信藍 */
-            --accent-color: #FF8C00;    /* 數據橙 */
-            --text-dark: #333333;
-            --text-gray: #555555;       
-            --light-bg: #F5F5F5;
-            --line-green: #06C755;
-            
-            /* 新增 Footer 專用深綠色 */
+            /* 品牌色系 */
+            --primary-color: #2E8B57;   
+            --secondary-color: #4169E1; 
+            --accent-color: #FF8C00;    
             --footer-bg: #2F3A34;
             --footer-text: #E6EAE7;
             
+            /* 文字顏色 */
+            --text-dark: #333333;
+            --text-gray: #555555;       
+            --light-bg: #F5F5F5;
+            
+            /* 圓角設定 */
             --radius-card: 20px;
             --radius-btn: 50px;
+
+            /* ★★★ 字體大小統一系統 (Typography System) ★★★ */
+            --text-sm: 0.95rem;   /* 小字、標籤、Meta 統一用這個 */
+            --text-base: 1.05rem; /* 一般內文、卡片敘述 統一用這個 */
+            --text-lg: 1.2rem;    /* 引言、重點強調 統一用這個 */
         }
 
         body {
@@ -44,7 +50,7 @@
             line-height: 1.75;
             font-weight: 300;
             font-size: 17px;
-            padding-top: 80px; /* 避免被導覽列擋住 */
+            padding-top: 80px;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -86,9 +92,7 @@
         }
         .btn-nav-cta:hover { background-color: #246B44; }
 
-        /* ========================================
-           Hero 區塊 (電腦版預設樣式)
-           ======================================== */
+        /* Hero 區塊 */
         .carousel-item {
             height: 90vh;
             min-height: 600px;
@@ -103,11 +107,11 @@
         .carousel-caption {
             bottom: 30%;
             text-align: left;
-            left: 10%; /* 電腦版靠左 */
+            left: 10%;
             right: 10%;
         }
         .carousel-caption h1 {
-            font-size: 3.5rem; /* 電腦版大字體 */
+            font-size: 3.5rem;
             color: #ffffff !important;
             text-shadow: 0 2px 10px rgba(0,0,0,0.4);
             line-height: 1.2;
@@ -131,7 +135,7 @@
             border-radius: var(--radius-btn);
             transition: 0.3s;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            display: inline-block; /* 確保按鈕正確顯示 */
+            display: inline-block;
         }
         .btn-hero:hover {
             background-color: white;
@@ -175,8 +179,51 @@
             color: var(--text-dark);
         }
         .section-header p.text-muted {
-            font-size: 1.1rem;
+            font-size: var(--text-base); /* 統一 */
             margin-top: 15px;
+        }
+
+        /* Process 流程 */
+        .process-step {
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        .process-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: rgba(46, 139, 87, 0.1);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 25px;
+            transition: 0.3s;
+        }
+        .process-step:hover .process-icon-wrapper {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+        }
+        .process-step h4 { font-size: 1.4rem; margin-bottom: 15px; }
+        .process-step p { 
+            font-size: var(--text-base); /* 統一 */
+            color: #777; 
+        }
+        
+        @media (min-width: 992px) {
+            .process-arrow::after {
+                content: "\f054";
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                position: absolute;
+                top: 40px;
+                right: -10px;
+                color: #ddd;
+                font-size: 1.5rem;
+            }
         }
 
         /* 核心支柱卡片 */
@@ -199,7 +246,11 @@
             margin-bottom: 30px;
         }
         .card-title { font-weight: 700; margin-bottom: 20px; font-size: 1.6rem; }
-        .card-text { color: var(--text-gray); line-height: 1.7; font-size: 1.1rem; }
+        .card-text { 
+            color: var(--text-gray); 
+            line-height: 1.7; 
+            font-size: var(--text-base); /* 統一 */
+        }
 
         /* Bento Grid */
         .bento-grid {
@@ -207,7 +258,6 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 25px;
         }
-
         .bento-card {
             position: relative;
             border-radius: var(--radius-card);
@@ -218,12 +268,10 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.08);
             border: 1px solid rgba(0,0,0,0.05);
         }
-
         .bento-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.12);
         }
-
         .bento-card img {
             width: 100%;
             height: 100%;
@@ -231,23 +279,18 @@
             opacity: 1;
             transition: 0.5s;
         }
-        
         .bento-card:hover img {
             opacity: 0.95; 
             transform: scale(1.03);
         }
-
         .bento-content {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            bottom: 0; left: 0; width: 100%;
             padding: 35px 25px;
             background: linear-gradient(to top, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0) 100%);
             color: var(--text-dark);
             z-index: 2;
         }
-        
         .bento-content h4 { 
             color: var(--text-dark);
             margin-bottom: 8px; 
@@ -256,18 +299,12 @@
         }
         .bento-content p { 
             color: var(--text-gray);
-            font-size: 1rem;
+            font-size: var(--text-base); /* 統一 */
             margin: 0; 
             font-weight: 400;
         }
-
-        @media (max-width: 992px) {
-            .bento-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 576px) {
-            .bento-grid { grid-template-columns: 1fr; }
-            .bento-card { height: 300px; }
-        }
+        @media (max-width: 992px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 576px) { .bento-grid { grid-template-columns: 1fr; } .bento-card { height: 300px; } }
 
         /* Blog Card */
         .blog-card {
@@ -288,9 +325,20 @@
             border-color: var(--primary-color);
         }
         .blog-body { padding: 35px; flex-grow: 1; display: flex; flex-direction: column; }
-        .blog-tag { font-size: 0.9rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 15px; text-transform: uppercase; }
+        .blog-tag { 
+            font-size: var(--text-sm); /* 統一小字 */
+            font-weight: 800; 
+            letter-spacing: 1px; 
+            margin-bottom: 15px; 
+            text-transform: uppercase; 
+        }
         .blog-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; line-height: 1.4; }
-        .blog-desc { color: var(--text-gray); font-size: 1.05rem; margin-bottom: 25px; flex-grow: 1; }
+        .blog-desc { 
+            color: var(--text-gray); 
+            font-size: var(--text-base); /* 統一 */
+            margin-bottom: 25px; 
+            flex-grow: 1; 
+        }
         .blog-body .btn-link { font-size: 1rem; }
 
         /* 案例區塊 */
@@ -309,17 +357,63 @@
             color: rgb(255, 255, 255);
         }
         .project-info h5 { font-size: 1.4rem; margin-bottom: 5px;color: rgb(255, 255, 255); }
-        .project-info p.small { font-size: 1rem; }
+        .project-info p.small { 
+            font-size: var(--text-sm); /* 統一小字 (原本是 1rem) */
+        }
 
         /* 關於我們-詳細 */
         .about-content h3 { font-size: 2rem; margin-bottom: 25px; }
         .about-content p.lead { font-size: 1.3rem; font-weight: 400; }
-        .about-content p { font-size: 1.1rem; }
-        .about-content .row .col-6 { font-size: 1.05rem; font-weight: 500; }
+        .about-content p { 
+            font-size: var(--text-base); /* 統一 */
+        }
+        .about-content .row .col-6 { font-size: var(--text-base); font-weight: 500; }
+        
+        /* 創始人語錄 - 無框雜誌風格 */
+        .founder-quote-minimal {
+            text-align: center;      
+            margin-top: 60px;        
+            position: relative;
+            padding: 0 20px;
+        }
 
-        /* =========================================
-           ★ Footer 樣式 (整合新配色)
-           ========================================= */
+        .quote-icon {
+            font-size: 2.5rem;       
+            color: var(--primary-color); 
+            opacity: 0.3;            
+            margin-bottom: 20px;     
+            display: block;
+        }
+
+        .quote-text {
+            font-size: 1.5rem;       
+            font-weight: 500;        
+            color: #1a1a1a;          
+            line-height: 1.6;        
+            font-family: 'Noto Serif TC', serif; 
+            margin-bottom: 25px;
+        }
+
+        .quote-author {
+            font-weight: 700;
+            font-size: var(--text-base); /* 統一作者署名大小 */
+            color: var(--primary-color); 
+            letter-spacing: 1px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .quote-author::before {
+            content: "";
+            display: inline-block;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent-color); 
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        /* Footer */
         footer { 
             background: var(--footer-bg); 
             color: var(--footer-text); 
@@ -331,27 +425,18 @@
             font-weight: 700; 
             font-size: 1.2rem; 
         }
-        
-        .footer-desc {
-            color: #C9D1CB;
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 30px;
+        .footer-desc { 
+            color: #C9D1CB; 
+            font-size: var(--text-base); /* 統一 */
+            line-height: 1.8; 
+            margin-bottom: 30px; 
         }
-
-        .footer-divider {
-            height: 1px;
-            background: rgba(255,255,255,0.15);
-            margin: 40px 0;
+        .footer-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 40px 0; }
+        .footer-info p { 
+            font-size: var(--text-sm); /* 統一小字 */
+            color: #C9D1CB; 
+            margin-bottom: 8px; 
         }
-
-        .footer-info p {
-            font-size: 0.95rem;
-            color: #C9D1CB;
-            margin-bottom: 8px;
-        }
-
-        /* 連結樣式 */
         footer a { 
             color: #A9B4AE; 
             text-decoration: none; 
@@ -359,19 +444,10 @@
             margin-bottom: 10px; 
             transition: 0.3s; 
             font-weight: 300; 
-            font-size: 1.05rem; 
+            font-size: var(--text-sm); /* 統一小字 (選單連結不宜過大) */
         }
-        footer a:hover { 
-            color: var(--primary-color); 
-            padding-left: 5px; 
-        }
-
-        .footer-bottom {
-            font-size: 0.85rem;
-            color: #9FAAA4;
-            margin-top: 20px;
-            text-align: center;
-        }
+        footer a:hover { color: var(--primary-color); padding-left: 5px; }
+        .footer-bottom { font-size: 0.85rem; color: #9FAAA4; margin-top: 20px; text-align: center; }
 
         /* Go Top */
         #backToTop {
@@ -384,143 +460,50 @@
         }
         #backToTop:hover { background-color: var(--secondary-color); transform: translateY(-5px); }
 
-        /* =========================================
-           ★ 精美版聯絡表單樣式
-           ========================================= */
-
+        /* Contact Form */
         .contact-box-refined {
             background: #ffffff;
             padding: 60px 50px;
             border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05), 
-                        0 20px 60px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05), 0 20px 60px rgba(0,0,0,0.05);
             border: 1px solid rgba(0,0,0,0.02);
         }
-
-        /* 標題左對齊 + 線條 */
-        .contact-header { 
-            margin-bottom: 40px; 
-            text-align: left; 
-            border-left: 4px solid var(--primary-color); 
-            padding-left: 20px; 
-        }
-        .contact-header h2 { 
-            font-size: 2rem; 
-            color: #2c3e50; 
-            font-weight: 700; 
-            margin-bottom: 10px;
-        }
+        .contact-header { margin-bottom: 40px; text-align: left; border-left: 4px solid var(--primary-color); padding-left: 20px; }
+        .contact-header h2 { font-size: 2rem; color: #2c3e50; font-weight: 700; margin-bottom: 10px;}
         .contact-header p { 
             color: #95a5a6; 
-            font-size: 1.1rem;
-            text-align: left;
+            font-size: var(--text-base); /* 統一 */
+            text-align: left; 
         }
-
         .contact-options { display: flex; gap: 20px; margin-bottom: 40px; }
-        .contact-opt-btn {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-phone-ref {
-            background: #ffffff;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-        .btn-phone-ref:hover {
-            background: #f0fdf4;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(46, 139, 87, 0.15);
-        }
-
-        .btn-line-ref {
-            background: #06C755;
-            border: 2px solid #06C755;
-            color: #ffffff;
-        }
-        .btn-line-ref:hover {
-            background: #05b04b;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(6, 199, 85, 0.3);
-            color: white;
-        }
+        .contact-opt-btn { flex: 1; display: flex; align-items: center; justify-content: center; padding: 15px; border-radius: 50px; font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .btn-phone-ref { background: #ffffff; border: 2px solid var(--primary-color); color: var(--primary-color); }
+        .btn-phone-ref:hover { background: #f0fdf4; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(46, 139, 87, 0.15); }
+        .btn-line-ref { background: #06C755; border: 2px solid #06C755; color: #ffffff; }
+        .btn-line-ref:hover { background: #05b04b; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(6, 199, 85, 0.3); color: white; }
         .btn-line-ref i, .btn-phone-ref i { margin-right: 8px; font-size: 1.3rem; }
-
         .form-group-ref { margin-bottom: 25px; }
-        .form-label-ref {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #555;
-            font-size: 0.95rem;
+        .form-label-ref { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 500; 
+            color: #555; 
+            font-size: var(--text-sm); /* 統一小字 */
         }
-
-        .form-control-ref {
-            width: 100%;
-            padding: 16px 20px;
-            font-size: 1rem;
-            color: #333;
-            background-color: #f9fbfd;
-            border: 1px solid #e1e8ed;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .form-control-ref:focus {
-            background-color: #ffffff;
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(46, 139, 87, 0.1);
-        }
-
-        select.form-control-ref {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 20px center;
-            background-size: 16px;
-            cursor: pointer;
-        }
-
-        .btn-submit-ref {
-            display: block;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, #1e5c39 100%);
-            color: white;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            box-shadow: 0 10px 25px rgba(46, 139, 87, 0.3);
-        }
-
-        .btn-submit-ref:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(46, 139, 87, 0.4);
-        }
+        .form-control-ref { width: 100%; padding: 16px 20px; font-size: 1rem; color: #333; background-color: #f9fbfd; border: 1px solid #e1e8ed; border-radius: 12px; transition: all 0.3s ease; }
+        .form-control-ref:focus { background-color: #ffffff; border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 4px rgba(46, 139, 87, 0.1); }
+        select.form-control-ref { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 20px center; background-size: 16px; cursor: pointer; }
+        .btn-submit-ref { display: block; width: 100%; padding: 20px; background: linear-gradient(135deg, var(--primary-color) 0%, #1e5c39 100%); color: white; font-size: 1.25rem; font-weight: 700; border: none; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; letter-spacing: 1px; box-shadow: 0 10px 25px rgba(46, 139, 87, 0.3); }
+        .btn-submit-ref:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(46, 139, 87, 0.4); }
 
         @media (max-width: 768px) {
             .contact-box-refined { padding: 40px 25px; }
             .contact-options { flex-direction: column; gap: 15px; }
-            .contact-header { border-left: none; padding-left: 0; text-align: center; } /* 手機版標題置中較好看 */
+            .contact-header { border-left: none; padding-left: 0; text-align: center; }
             .contact-header p { text-align: center; }
         }
 
-        /* Modal 樣式 (保持原樣) */
+        /* Modal 樣式 */
         .modal-magazine .modal-content { border: none; border-radius: var(--radius-card); overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
         .magazine-layout { display: flex; flex-wrap: wrap; min-height: 600px; }
         .magazine-img { flex: 0 0 45%; background-size: cover; background-position: center; position: relative; }
@@ -530,48 +513,14 @@
         .magazine-content p.lead { font-size: 1.35rem; font-weight: 400; margin-bottom: 2rem; }
         @media (max-width: 768px) { .magazine-img, .magazine-content { flex: 0 0 100%; } .magazine-img { height: 300px; } .magazine-content { padding: 40px 30px; } .magazine-title { font-size: 2rem; } }
 
-        /* =========================================================
-           ★★★ RWD 特別優化區 (解決 Banner 大跑版問題) ★★★
-           ========================================================= */
+        /* RWD 特別優化區 */
         @media (max-width: 768px) {
-            /* 1. 調整 Banner 文字容器 */
-            .carousel-caption {
-                left: 0 !important;      /* 移除原本的 10% 縮排 */
-                right: 0 !important;     /* 移除右邊縮排 */
-                bottom: 25% !important;  /* 稍微往下調，避免被 Header 遮擋 */
-                padding: 0 25px;         /* 增加左右內距，文字不貼邊 */
-                text-align: center !important; /* 手機版改為置中對齊，比較美觀 */
-            }
-
-            /* 2. 標題文字優化 */
-            .carousel-caption h1 {
-                font-size: 2.2rem !important; /* 強制縮小字體 (原 3.5rem) */
-                line-height: 1.3;
-                margin-bottom: 15px;
-                white-space: normal;     /* 允許自動換行 */
-            }
-            
-            /* 3. 隱藏標題中的強制換行 <br> */
-            .carousel-caption h1 br {
-                display: none;           /* 讓長標題自然換行，不要斷在奇怪的地方 */
-            }
-
-            /* 4. 副標題文字優化 */
-            .carousel-caption .lead {
-                font-size: 1.1rem !important;
-                margin-bottom: 20px;
-            }
-
-            /* 5. Banner 按鈕優化 */
-            .btn-hero {
-                width: 100%;             /* 按鈕寬度滿版，方便手指點擊 */
-                padding: 12px 0;
-            }
-
-            /* 6. Section 標題大小調整 */
-            .section-header h2 {
-                font-size: 2.2rem;
-            }
+            .carousel-caption { left: 0 !important; right: 0 !important; bottom: 25% !important; padding: 0 25px; text-align: center !important; }
+            .carousel-caption h1 { font-size: 2.2rem !important; line-height: 1.3; margin-bottom: 15px; white-space: normal; }
+            .carousel-caption h1 br { display: none; }
+            .carousel-caption .lead { font-size: 1.1rem !important; margin-bottom: 20px; }
+            .btn-hero { width: 100%; padding: 12px 0; }
+            .section-header h2 { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -588,6 +537,7 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link active" href="#home">首頁</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">關於我們</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#process">合作流程</a></li> 
                     <li class="nav-item"><a class="nav-link" href="#how-we-design">如何設計</a></li>
                     <li class="nav-item"><a class="nav-link" href="#insights">觀點洞察</a></li>
                     <li class="nav-item ms-3">
@@ -599,7 +549,6 @@
     </nav>
 
     <header id="home" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000">
-        
         <div class="carousel-inner">
             <div class="carousel-item active" style="background-image: url('S__4833352_0.jpg')">
                 <div class="carousel-overlay"></div>
@@ -617,12 +566,11 @@
                     <div class="container">
                         <h1>十年節省 3,000 萬的<br>辦公室革命</h1>
                         <p class="lead">初始即節省，未來更增值。<br>將裝修支出轉化為可移動的企業資產。</p>
-                        <a href="#cases" class="btn btn-hero mt-4">查看財務分析數據</a>
+                        <a href="#process" class="btn btn-hero mt-4">查看標準化流程</a>
                     </div>
                 </div>
             </div>
         </div>
-
         <button class="carousel-control-prev" type="button" data-bs-target="#home" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -631,8 +579,8 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-
     </header>
+
     <section class="stats-section">
         <div class="container">
             <div class="row text-center">
@@ -687,15 +635,78 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <div class="founder-quote-minimal">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="quote-text">
+                            "設計不是為了拍照好看，而是為了解決企業未來十年的生存問題。<br>我們用數據與模組化，幫客戶把每一分錢都變成資產，而不是沈沒成本。"
+                        </p>
+                        <div class="quote-author">
+                            BossDesign 創始人
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section id="how-we-design" class="section-padding">
+    <section id="process" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h6>Workflow</h6>
+                <h2>標準化服務流程</h2>
+                <p class="text-muted">從評估到落地，四步驟打造韌性空間</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <div class="process-step process-arrow">
+                        <div class="process-icon-wrapper">
+                            <i class="fas fa-search-location"></i>
+                        </div>
+                        <h4>1. 數據評估</h4>
+                        <p>分析人員密度、聲學現況與組織成長預測，產出 ESG 影響力報告。</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <div class="process-step process-arrow">
+                        <div class="process-icon-wrapper">
+                            <i class="fas fa-chess-knight"></i>
+                        </div>
+                        <h4>2. 策略規劃</h4>
+                        <p>制定「核心區」與「彈性區」配比，運用 AI 模擬最佳光環境與動線。</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <div class="process-step process-arrow">
+                        <div class="process-icon-wrapper">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <h4>3. 模組化施工</h4>
+                        <p>採用預製組件，現場低粉塵、低噪音，施工期縮短 30% 以上。</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="process-step">
+                        <div class="process-icon-wrapper">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h4>4. 永續運維</h4>
+                        <p>隨著組織變動，隨時調整隔間配置，並提供資產回購與升級服務。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-we-design" class="section-padding bg-light">
         <div class="container">
             <div class="section-header">
                 <h6>How We Design</h6>
                 <h2>深度系統整合</h2>
-                <p class="text-muted">不只是好看，更要好用</p>
+                <p class="text-muted">科技賦能，讓設計有憑有據</p>
             </div>
             
             <div class="bento-grid">
@@ -714,10 +725,10 @@
                     </div>
                 </div>
                 <div class="bento-card">
-                    <img src="S__4833352_0.jpg" alt="Behavior">
+                    <img src="S__4833352_0.jpg" alt="AI Simulation">
                     <div class="bento-content">
-                        <h4>行為設計</h4>
-                        <p>不期而遇的交流空間</p>
+                        <h4>AI 運算模擬</h4>
+                        <p>數據驅動的動線與效能預判</p>
                     </div>
                 </div>
                  <div class="bento-card">
@@ -731,7 +742,7 @@
         </div>
     </section>
 
-    <section id="insights" class="section-padding bg-light">
+    <section id="insights" class="section-padding">
         <div class="container">
             <div class="section-header">
                 <h6>Insights</h6>
@@ -773,7 +784,7 @@
         </div>
     </section>
 
-    <section id="cases" class="section-padding">
+    <section id="cases" class="section-padding bg-light">
         <div class="container">
             <div class="section-header">
                 <h6>Proven Cases</h6>
@@ -812,7 +823,7 @@
         </div>
     </section>
 
-    <section class="section-padding bg-light">
+    <section class="section-padding">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-5 mb-4 mb-lg-0 text-center">
@@ -868,7 +879,6 @@
                         
                         <form name="contact" method="POST" data-netlify="true">
                             <input type="hidden" name="form-name" value="contact" />
-                            
                             <div class="row">
                                 <div class="col-md-6 form-group-ref">
                                     <label class="form-label-ref">您的姓名</label>
@@ -879,7 +889,6 @@
                                     <input type="email" name="email" class="form-control-ref" >
                                 </div>
                             </div>
-                            
                             <div class="form-group-ref">
                                 <label class="form-label-ref">您目前最困擾的辦公室問題？</label>
                                 <select name="issue" class="form-control-ref" id="issueSelect" onchange="toggleOtherInput()">
@@ -894,21 +903,13 @@
                                     <input type="text" name="issue_other" class="form-control-ref" placeholder="請具體描述您的需求...">
                                 </div>
                             </div>
-
                             <div class="form-group-ref mb-5">
                                 <label class="form-label-ref">備註訊息 (選填)</label>
                                 <textarea name="message" class="form-control-ref" rows="4" placeholder="例如：預計裝修坪數、預算範圍、特殊需求..."></textarea>
                             </div>
-                            
-                            <button type="submit" class="btn-submit-ref">
-                                索取評估報告
-                            </button>
-                            
-                            <p class="text-center mt-3 small text-muted">
-                                <i class="fas fa-lock me-1"></i> 您的資料將受到嚴格保密，請安心填寫。
-                            </p>
+                            <button type="submit" class="btn-submit-ref">索取評估報告</button>
+                            <p class="text-center mt-3 small text-muted"><i class="fas fa-lock me-1"></i> 您的資料將受到嚴格保密，請安心填寫。</p>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -920,9 +921,7 @@
             <div class="row">
                 <div class="col-lg-8 mb-5">
                     <h5>BossDesign 博斯設計</h5>
-                    <p class="footer-desc">
-                        以策略設計為核心，讓辦公空間成為企業永續競爭力的一部分。
-                    </p>
+                    <p class="footer-desc">以策略設計為核心，讓辦公空間成為企業永續競爭力的一部分。</p>
                     <div class="footer-info">
                         <p><i class="fas fa-phone-alt me-2"></i>電話：02-2265-0351 / 04-2359-9785</p>
                         <p><i class="fas fa-map-marker-alt me-2"></i>台北市信義區信義路五段5號3樓C40（捷運101站1號出口）</p>
@@ -930,28 +929,22 @@
                         <p><i class="far fa-clock me-2"></i>營業時間：周一至周五 9:00 – 18:00</p>
                     </div>
                 </div>
-                
                 <div class="col-lg-4 mb-5">
                     <h5>網站地圖</h5>
                     <a href="#home">首頁</a>
                     <a href="#about">關於我們</a>
+                    <a href="#process">合作流程</a>
                     <a href="#how-we-design">如何設計</a>
                     <a href="#insights">觀點洞察</a>
                     <a href="#cases">實證案例</a>
                 </div>
             </div>
-
             <div class="footer-divider"></div>
-
-            <div class="footer-bottom">
-                &copy; BossDesign. All Rights Reserved.
-            </div>
+            <div class="footer-bottom">&copy; BossDesign. All Rights Reserved.</div>
         </div>
     </footer>
 
-    <button id="backToTop" title="回到頂部">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+    <button id="backToTop" title="回到頂部"><i class="fas fa-arrow-up"></i></button>
 
     <div class="modal fade" id="article1" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-magazine">
@@ -986,6 +979,109 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="article2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-magazine">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="magazine-layout">
+                        <div class="magazine-img" style="background-image: url('S__4833352_0.jpg');"></div>
+                        <div class="magazine-content">
+                            <button type="button" class="btn-close position-absolute top-0 end-0 m-4" data-bs-dismiss="modal"></button>
+                            <div class="magazine-tag" style="color: var(--secondary-color);">Strategy</div>
+                            <h2 class="magazine-title">我們是設計公司，<br>但不是傳統的那種</h2>
+                            <p class="lead mb-5" style="font-weight: 300; color: #777;">
+                                大多數設計公司關注「完工的那一天」，我們關注「完工後的十年」。
+                            </p>
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="me-4 fs-3" style="color: var(--secondary-color);">01.</div>
+                                <div>
+                                    <h5 class="fw-bold fs-5 mb-3">從「工程思維」到「產品思維」</h5>
+                                    <p class="small text-secondary mb-0" style="font-size: 1.05rem;">傳統裝修是一次性的工程，拆除即是廢棄物。BossDesign 將辦公室視為「產品」，利用標準化組件，讓辦公空間像樂高一樣可以隨時重組。</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start">
+                                <div class="me-4 fs-3" style="color: var(--secondary-color);">02.</div>
+                                <div>
+                                    <h5 class="fw-bold fs-5 mb-3">陪你成長的合作夥伴</h5>
+                                    <p class="small text-secondary mb-0" style="font-size: 1.05rem;">企業是動態的，空間不該是靜態的。我們提供全生命週期服務，當你們擴編、縮編或搬遷時，我們的設計能以最低成本適應變化。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="article3" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-magazine">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="magazine-layout">
+                        <div class="magazine-img" style="background-image: url('S__4833352_0.jpg');"></div>
+                        <div class="magazine-content">
+                            <button type="button" class="btn-close position-absolute top-0 end-0 m-4" data-bs-dismiss="modal"></button>
+                            <div class="magazine-tag" style="color: var(--accent-color);">Quarterly Report</div>
+                            <h2 class="magazine-title">企業 ESG 空間策略定錨：<br>數據與能源的戰場</h2>
+                            <p class="lead mb-5" style="font-weight: 300; color: #777;">
+                                2025 年的辦公室，不只是工作的場所，更是收集企業運營數據的終端。
+                            </p>
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="me-4 fs-3" style="color: var(--accent-color);">01.</div>
+                                <div>
+                                    <h5 class="fw-bold fs-5 mb-3">看得見的碳足跡</h5>
+                                    <p class="small text-secondary mb-0" style="font-size: 1.05rem;">透過 IoT 感測器與 AI 分析，我們協助企業監控辦公室的能耗與空氣品質。這些數據直接對接 ESG 報告，讓你的空間成為企業治理的加分項。</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start">
+                                <div class="me-4 fs-3" style="color: var(--accent-color);">02.</div>
+                                <div>
+                                    <h5 class="fw-bold fs-5 mb-3">AI 輔助的空間決策</h5>
+                                    <p class="small text-secondary mb-0" style="font-size: 1.05rem;">憑感覺設計的時代結束了。我們利用演算法模擬人員流動與會議室使用率，確保每一坪空間都在創造價值，杜絕閒置浪費。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-magazine">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="magazine-layout">
+                        <div class="magazine-img" style="background-image: url('S__4833350_0.jpg');"></div>
+                        <div class="magazine-content">
+                            <button type="button" class="btn-close position-absolute top-0 end-0 m-4" data-bs-dismiss="modal"></button>
+                            <div class="magazine-tag" style="color: var(--primary-color);">Proven Case</div>
+                            <h2 class="magazine-title">新世代科技集團：<br>可移動的企業資產</h2>
+                            <p class="lead mb-5" style="font-weight: 300; color: #777;">
+                                我們協助該客戶將 80% 的裝修預算轉化為可帶走的資產，並在一年內靈活調整了 3 次隔間配置。
+                            </p>
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="me-4 fs-3" style="color: var(--primary-color);">01.</div>
+                                <div>
+                                    <h5 class="fw-bold fs-5 mb-3">挑戰：快速擴編的焦慮</h5>
+                                    <p class="small text-secondary mb-0" style="font-size: 1.05rem;">客戶預期人力將在兩年內翻倍，傳統固定隔間無法滿足這種彈性。我們導入模組化隔間系統，讓辦公室能像樂高一樣隨需應變。</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start">
+                                <div class="me-4 fs-3" style="color: var(--primary-color);">02.</div>
+                                <div>
+                                    <h5 class="fw-bold fs-5 mb-3">成果：財務與空間雙贏</h5>
+                                    <p class="small text-secondary mb-0" style="font-size: 1.05rem;">不僅解決了空間不足的問題，更因為建材可回收利用，幫助客戶在 ESG 評鑑中獲得額外加分。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // 數字動畫邏輯
