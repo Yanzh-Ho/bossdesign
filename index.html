@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BossDesign 博斯設計 | 建造會呼吸的辦公室</title>
 
     <meta name="description" content="博斯設計 提供 ESG 辦公室解決方案，結合聲學、光環境與靈活隔間，為企業打造可持續、高效率的工作生態系統。">
@@ -20,7 +20,6 @@
            全域變數 & 字體系統
            ======================================== */
         :root {
-            /* 品牌色系 */
             --primary-color: #2E8B57;   
             --secondary-color: #4169E1; 
             --accent-color: #FF8C00;    
@@ -34,16 +33,21 @@
             --radius-card: 20px;
             --radius-btn: 50px;
 
-            /* 字體大小統一系統 */
             --text-sm: 0.95rem;   
             --text-base: 1.05rem; 
             --text-lg: 1.2rem;    
         }
 
+        /* 防止手機版橫向卷軸 (左右搖晃) */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
         body {
             font-family: 'Noto Sans TC', sans-serif;
             color: var(--text-gray);
-            overflow-x: hidden;
             position: relative;
             line-height: 1.75;
             font-weight: 300;
@@ -154,14 +158,14 @@
             color: var(--accent-color);
             margin-bottom: 10px;
             line-height: 1;
+            white-space: nowrap; /* 防止數字換行 */
         }
-        /* 統計數字的單位小字 (JS 插入的 span) */
+        /* 統計數字單位微調 */
         .stat-unit {
-            font-size: 0.4em; /* 讓單位變小 */
+            font-size: 0.45em; /* 單位縮小 */
             margin-left: 5px;
-            vertical-align: middle;
             color: var(--accent-color);
-            font-weight: 500;
+            vertical-align: baseline;
         }
         .stat-label {
             font-size: 1.1rem;
@@ -190,7 +194,7 @@
             margin-top: 15px;
         }
 
-        /* Process 流程 - 電腦版樣式 */
+        /* Process 流程 */
         .process-step {
             text-align: left;       
             padding: 20px 15px;
@@ -210,11 +214,19 @@
             margin: 0 auto 25px;     
             transition: 0.3s;
         }
-        /* 電腦版時 Icon 靠左修正 (因為上方 text-align: left) */
         @media (min-width: 992px) {
             .process-icon-wrapper { margin: 0 0 25px 0; }
+            .process-arrow::after {
+                content: "\f054";
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                position: absolute;
+                top: 40px;           
+                right: -15px;        
+                color: #e0e0e0;      
+                font-size: 1.5rem;
+            }
         }
-
         .process-step:hover .process-icon-wrapper {
             background: var(--primary-color);
             color: white;
@@ -232,19 +244,6 @@
             line-height: 1.6;
             margin-bottom: 0;
             min-height: 3.4em;       
-        }
-        
-        @media (min-width: 992px) {
-            .process-arrow::after {
-                content: "\f054";
-                font-family: "Font Awesome 5 Free";
-                font-weight: 900;
-                position: absolute;
-                top: 40px;           
-                right: -15px;        
-                color: #e0e0e0;      
-                font-size: 1.5rem;
-            }
         }
 
         /* 核心支柱卡片 */
@@ -531,18 +530,17 @@
         @media (max-width: 768px) { .magazine-img, .magazine-content { flex: 0 0 100%; } .magazine-img { height: 300px; } .magazine-content { padding: 40px 30px; } .magazine-title { font-size: 2rem; } }
 
         /* =========================================================
-           ★★★ RWD 特別優化區 (修復手機版爆版/美感問題) ★★★
+           ★★★ RWD 特別優化區 (修復手機版跑版問題) ★★★
            ========================================================= */
         @media (max-width: 768px) {
             
-            /* 1. 導航欄與全域設定 */
-            body { padding-top: 70px; } /* 縮小頂部間距 */
-            .navbar-brand { font-size: 1.25rem !important; }
-            .section-header h2 { font-size: 1.75rem; line-height: 1.3; }
+            /* 1. 全域設定 - 縮小間距 */
+            body { padding-top: 70px; }
+            .section-header h2 { font-size: 1.8rem; line-height: 1.3; }
             .section-header p.text-muted { font-size: 0.95rem; }
-            .section-padding { padding: 60px 0; } /* 手機版間距減半 */
+            .section-padding { padding: 50px 0; } /* 手機版間距大幅縮小 */
             
-            /* 2. Hero Banner 優化 */
+            /* 2. Banner 修復 - 文字不跑版 */
             .carousel-item { height: 80vh; min-height: 500px; }
             .carousel-caption { 
                 bottom: 20% !important; 
@@ -555,9 +553,10 @@
                 line-height: 1.3; 
                 margin-bottom: 15px; 
                 text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-                white-space: normal; /* 允許換行 */
+                white-space: normal;
+                word-break: keep-all; /* 防止中文斷詞 */
             }
-            .carousel-caption h1 br { display: none; } /* 手機版隱藏 BR */
+            .carousel-caption h1 br { display: none; }
             .carousel-caption .lead { 
                 font-size: 1rem !important; 
                 margin-bottom: 20px; 
@@ -565,7 +564,7 @@
             }
             .btn-hero { width: 80%; padding: 12px 0; font-size: 1rem; }
             
-            /* 3. ★ 統計數字修復 (重點修復) ★ */
+            /* 3. ★ 統計數字修復 - 最重要的修復 ★ */
             .stats-section { padding: 40px 0; background: #fafafa; }
             .stats-section .row {
                 display: flex;
@@ -579,52 +578,46 @@
                 justify-content: center;
                 align-items: center;
                 margin-bottom: 15px !important;
+                padding: 0 5px; /* 減少內邊距防止擠壓 */
             }
             .stat-number {
-                /* 強制縮小字體並允許彈性調整 */
-                font-size: 2.2rem !important; 
+                font-size: 2.5rem !important; /* 縮小字體 */
                 line-height: 1;
                 margin-bottom: 5px;
                 color: var(--accent-color);
-                /* 讓數字與旁邊的 span 單位在同一行 */
-                white-space: nowrap; 
-                letter-spacing: -1px; 
+                display: flex;
+                align-items: baseline;
+                justify-content: center;
             }
-            .stat-label {
-                font-size: 0.85rem;
-                color: #777;
-                margin-top: 0;
-            }
-
-            /* 4. 卡片與 Bento Grid 優化 */
+            
+            /* 4. 卡片與 Bento Grid 修復 */
             .bento-grid { 
-                grid-template-columns: 1fr; /* 手機版改為單欄 */
+                grid-template-columns: 1fr; 
                 gap: 20px;
             }
-            .bento-card { height: 280px; } /* 降低卡片高度 */
+            .bento-card { height: 280px; }
             
             .philosophy-card, .blog-card, .project-item {
                 margin-bottom: 20px;
             }
             .philosophy-card { padding: 30px 20px; }
             
-            /* 5. 流程區塊 - 強制置中 */
+            /* 5. 流程區塊 - 強制置中對齊 */
             .process-arrow::after { display: none; } 
             .process-step { 
                 margin-bottom: 30px; 
                 padding: 10px; 
-                text-align: center !important; /* 修正：強制置中 */
+                text-align: center !important;
             }
             .process-icon-wrapper { 
                 width: 60px; height: 60px; font-size: 1.5rem; 
-                margin: 0 auto 15px auto !important; /* 修正：強制置中 */
+                margin: 0 auto 15px auto !important; 
             }
             
-            /* 6. 關於我們 - 強制置中 */
+            /* 6. 關於我們 - 內容置中 */
             .about-img { margin-bottom: 30px; }
             .about-content h3 { font-size: 1.6rem; text-align: center; }
             .about-content p.lead { font-size: 1.1rem; text-align: center; }
-            /* 勾選項目改為置中，並加寬度 */
             .about-content .row { 
                 text-align: center; 
                 justify-content: center;
@@ -634,10 +627,7 @@
                 justify-content: center;
             }
             
-            .founder-quote-minimal { margin-top: 30px; padding: 0 10px; }
-            .quote-text { font-size: 1.1rem; text-align: center; }
-            
-            /* 7. 聯絡表單 */
+            /* 7. 表單優化 */
             .contact-box-refined { padding: 30px 20px; border-radius: 15px; }
             .contact-header h2 { font-size: 1.5rem; }
             .contact-opt-btn { font-size: 0.95rem; padding: 12px; }
@@ -1223,25 +1213,23 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // 數字動畫邏輯 (修正版：支援 HTML 標籤)
+        // 數字動畫邏輯 (修復版：確保 HTML 單位標籤正確插入)
         const counters = document.querySelectorAll('.stat-number');
         const speed = 200;
+        
         const animateCounters = () => {
             counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
                 const updateCount = () => {
-                    const target = +counter.getAttribute('data-target');
-                    const count = +counter.innerText; 
+                    const count = +counter.innerText.replace(/[^0-9]/g, ''); // 簡單取出數字
                     
-                    // 因為 innerText 讀不到 html 標籤，我們只對數字動畫
-                    // 這裡簡化邏輯：直接覆蓋 HTML
-                    
-                    // 實際應用若要動畫，需先讀取純數字，這裡做個簡單版
-                    // 直接顯示最終結果，避免複雜
+                    // 這裡直接顯示最終結果，確保單位樣式正確
                     if(target == 3000) {
                         counter.innerHTML = '3000<span class="stat-unit">萬+</span>';
                     } else if(target == 85) {
                         counter.innerHTML = '85<span class="stat-unit">%</span>';
                     } else if(target == 45) {
+                        // 手機版讓 STC 在數字旁邊
                         counter.innerHTML = '<span class="stat-unit" style="margin-right:5px; margin-left:0;">STC</span>45';
                     } else if(target == 100) {
                         counter.innerHTML = '100<span class="stat-unit">%</span>';
@@ -1252,7 +1240,7 @@
         };
 
         // 觀察器
-        let options = { threshold: 0.5 };
+        let options = { threshold: 0.1 }; // 降低閾值，讓它更容易觸發
         let observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1322,7 +1310,6 @@
                 otherInput.value = "";
             }
         }
-
     </script>
 </body>
 </html>
