@@ -20,26 +20,23 @@
            全域變數 & 字體系統
            ======================================== */
         :root {
-            /* 品牌色系 */
             --primary-color: #2E8B57;   /* 永續綠 */
             --secondary-color: #4169E1; /* 誠信藍 */
             --accent-color: #FF8C00;    /* 數據橙 */
             
-            /* 背景與文字 */
             --footer-bg: #2F3A34;
             --footer-text: #E6EAE7;
             --text-dark: #333333;
             --text-gray: #555555;       
             --light-bg: #F5F5F5;
             
-            /* UI 變數 */
             --radius-card: 20px;
             --radius-btn: 50px;
 
-            /* ★ 字體大小統一系統 ★ */
-            --text-sm: 0.95rem;   /* 小字、標籤、Meta */
-            --text-base: 1.05rem; /* 一般內文、卡片敘述 */
-            --text-lg: 1.2rem;    /* 引言、重點強調 */
+            /* 字體大小統一系統 */
+            --text-sm: 0.95rem;   
+            --text-base: 1.05rem; 
+            --text-lg: 1.2rem;    
         }
 
         body {
@@ -183,24 +180,26 @@
             margin-top: 15px;
         }
 
-        /* Process 流程 (靠左對齊) */
+        /* ========================================
+           ★ [修改] Process 流程 - 回歸置中對齊 (Centered)
+           ======================================== */
         .process-step {
-            text-align: left;
-            padding: 15px;
+            text-align: center;      /* 改回置中 */
+            padding: 20px 15px;
             position: relative;
             height: 100%;
         }
         .process-icon-wrapper {
-            width: 70px;             
-            height: 70px;
+            width: 80px;             /* 稍微加大 Icon */
+            height: 80px;
             background: rgba(46, 139, 87, 0.1);
             color: var(--primary-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            margin: 0 0 20px 0;
+            font-size: 2rem;
+            margin: 0 auto 25px;     /* 關鍵：左右 auto 讓它置中 */
             transition: 0.3s;
         }
         .process-step:hover .process-icon-wrapper {
@@ -219,19 +218,20 @@
             color: #666;
             line-height: 1.6;
             margin-bottom: 0;
-            min-height: 3.4em;       
+            min-height: 3.4em;       /* 保持兩行高度，避免長短腳 */
         }
         
+        /* 箭頭樣式 (僅在電腦版顯示，調整位置以配合置中設計) */
         @media (min-width: 992px) {
             .process-arrow::after {
                 content: "\f054";
                 font-family: "Font Awesome 5 Free";
                 font-weight: 900;
                 position: absolute;
-                top: 35px;
-                right: -10px;
+                top: 40px;           /* 對齊 Icon 中心 (80px的一半) + padding-top (20px) = 60px 左右微調 */
+                right: -15px;        
                 color: #e0e0e0;      
-                font-size: 1.2rem;
+                font-size: 1.5rem;
             }
         }
 
@@ -517,13 +517,7 @@
         .magazine-layout { display: flex; flex-wrap: wrap; min-height: 600px; }
         .magazine-img { flex: 0 0 45%; background-size: cover; background-position: center; position: relative; }
         .magazine-content { flex: 0 0 55%; padding: 70px 60px; display: flex; flex-direction: column; justify-content: center; background: white; position: relative; }
-        .magazine-tag { 
-            font-size: var(--text-sm);
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            font-weight: 800; 
-            margin-bottom: 25px; 
-        }
+        .magazine-tag { font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; margin-bottom: 25px; }
         .magazine-title { font-size: 2.5rem; margin-bottom: 35px; line-height: 1.3; font-weight: 700; color: var(--text-dark); }
         .magazine-content p.lead { font-size: 1.35rem; font-weight: 400; margin-bottom: 2rem; }
         @media (max-width: 768px) { .magazine-img, .magazine-content { flex: 0 0 100%; } .magazine-img { height: 300px; } .magazine-content { padding: 40px 30px; } .magazine-title { font-size: 2rem; } }
@@ -532,61 +526,18 @@
            ★★★ RWD 特別優化區 (解決手機版爆版/擠壓問題) ★★★
            ========================================================= */
         @media (max-width: 768px) {
-            
-            /* 1. 導覽列優化：縮小 Logo 避免被漢堡選單擠到 */
-            .navbar-brand {
-                font-size: 1.3rem !important; 
-            }
-
-            /* 2. Banner 優化 */
-            .carousel-caption { 
-                left: 0 !important; 
-                right: 0 !important; 
-                bottom: 25% !important; 
-                padding: 0 25px; 
-                text-align: center !important; 
-            }
-            .carousel-caption h1 { 
-                font-size: 2.2rem !important; 
-                line-height: 1.3; 
-                margin-bottom: 15px; 
-                white-space: normal; 
-            }
+            .navbar-brand { font-size: 1.3rem !important; }
+            .carousel-caption { left: 0 !important; right: 0 !important; bottom: 25% !important; padding: 0 25px; text-align: center !important; }
+            .carousel-caption h1 { font-size: 2.2rem !important; line-height: 1.3; margin-bottom: 15px; white-space: normal; }
             .carousel-caption h1 br { display: none; }
-            .carousel-caption .lead { 
-                font-size: 1.1rem !important; 
-                margin-bottom: 20px; 
-            }
+            .carousel-caption .lead { font-size: 1.1rem !important; margin-bottom: 20px; }
             .btn-hero { width: 100%; padding: 12px 0; }
-
-            /* 3. Section 標題大小調整 */
-            .section-header h2 { 
-                font-size: 1.8rem; /* 從 2.8rem 縮小，避免換行難看 */
-            }
-            .section-padding {
-                padding: 80px 0; /* 縮減手機版上下間距，視覺更緊湊 */
-            }
-
-            /* 4. 解決「關於我們」勾選項目被擠成兩行的問題 */
-            /* 強制在手機版將 col-6 (兩欄) 變為類似 col-12 的視覺效果 */
-            .about-content .row .col-6 {
-                width: 100%; /* 強制滿版，變為一欄 */
-                margin-bottom: 15px !important;
-                font-size: 1rem;
-            }
-
-            /* 5. 優化語錄 (Quote) 顯示 */
-            .founder-quote-minimal {
-                margin-top: 40px;
-            }
-            .quote-text {
-                font-size: 1.1rem; /* 縮小語錄字體 */
-                line-height: 1.5;
-            }
-            .quote-icon {
-                font-size: 2rem;
-                margin-bottom: 10px;
-            }
+            .section-header h2 { font-size: 1.8rem; }
+            .section-padding { padding: 80px 0; }
+            .about-content .row .col-6 { width: 100%; margin-bottom: 15px !important; font-size: 1rem; }
+            .founder-quote-minimal { margin-top: 40px; }
+            .quote-text { font-size: 1.1rem; line-height: 1.5; }
+            .quote-icon { font-size: 2rem; margin-bottom: 10px; }
         }
     </style>
 </head>
@@ -900,16 +851,16 @@
                     <p class="lead text-muted" style="font-weight: 300; font-size: 1.3rem;">我們見證過太多塵土飛揚的工地與被浪費的裝修預算。</p>
                     <p style="font-size: 1.15rem;">博斯設計的成立，旨在打破「裝修即浪費」的惡性循環。我們結合策略顧問與空間設計，致力於為企業打造可持續發展的工作生態系統。</p>
                     <div class="row mt-4">
-                        <div class="col-6 col-md-6 mb-4">
+                        <div class="col-12 col-md-6 mb-4">
                             <h5 class="d-flex align-items-center"><i class="fas fa-check-circle text-success me-3 fs-4"></i> 策略空間規劃</h5>
                         </div>
-                        <div class="col-6 col-md-6 mb-4">
+                        <div class="col-12 col-md-6 mb-4">
                             <h5 class="d-flex align-items-center"><i class="fas fa-check-circle text-success me-3 fs-4"></i> 數據驅動設計</h5>
                         </div>
-                        <div class="col-6 col-md-6 mb-4">
+                        <div class="col-12 col-md-6 mb-4">
                             <h5 class="d-flex align-items-center"><i class="fas fa-check-circle text-success me-3 fs-4"></i> 全生命週期管理</h5>
                         </div>
-                        <div class="col-6 col-md-6 mb-4">
+                        <div class="col-12 col-md-6 mb-4">
                             <h5 class="d-flex align-items-center"><i class="fas fa-check-circle text-success me-3 fs-4"></i> ESG 報告支援</h5>
                         </div>
                     </div>
@@ -945,7 +896,6 @@
                         
                         <form name="contact" method="POST" data-netlify="true">
                             <input type="hidden" name="form-name" value="contact" />
-                            
                             <div class="row">
                                 <div class="col-md-6 form-group-ref">
                                     <label class="form-label-ref">您的姓名</label>
@@ -956,7 +906,6 @@
                                     <input type="email" name="email" class="form-control-ref" >
                                 </div>
                             </div>
-                            
                             <div class="form-group-ref">
                                 <label class="form-label-ref">您目前最困擾的辦公室問題？</label>
                                 <select name="issue" class="form-control-ref" id="issueSelect" onchange="toggleOtherInput()">
@@ -971,21 +920,13 @@
                                     <input type="text" name="issue_other" class="form-control-ref" placeholder="請具體描述您的需求...">
                                 </div>
                             </div>
-
                             <div class="form-group-ref mb-5">
                                 <label class="form-label-ref">備註訊息 (選填)</label>
                                 <textarea name="message" class="form-control-ref" rows="4" placeholder="例如：預計裝修坪數、預算範圍、特殊需求..."></textarea>
                             </div>
-                            
-                            <button type="submit" class="btn-submit-ref">
-                                索取評估報告
-                            </button>
-                            
-                            <p class="text-center mt-3 small text-muted">
-                                <i class="fas fa-lock me-1"></i> 您的資料將受到嚴格保密，請安心填寫。
-                            </p>
+                            <button type="submit" class="btn-submit-ref">索取評估報告</button>
+                            <p class="text-center mt-3 small text-muted"><i class="fas fa-lock me-1"></i> 您的資料將受到嚴格保密，請安心填寫。</p>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -997,9 +938,7 @@
             <div class="row">
                 <div class="col-lg-8 mb-5">
                     <h5>BossDesign 博斯設計</h5>
-                    <p class="footer-desc">
-                        以策略設計為核心，讓辦公空間成為企業永續競爭力的一部分。
-                    </p>
+                    <p class="footer-desc">以策略設計為核心，讓辦公空間成為企業永續競爭力的一部分。</p>
                     <div class="footer-info">
                         <p><i class="fas fa-phone-alt me-2"></i>電話：02-2265-0351 / 04-2359-9785</p>
                         <p><i class="fas fa-map-marker-alt me-2"></i>台北市信義區信義路五段5號3樓C40（捷運101站1號出口）</p>
@@ -1007,7 +946,6 @@
                         <p><i class="far fa-clock me-2"></i>營業時間：周一至周五 9:00 – 18:00</p>
                     </div>
                 </div>
-                
                 <div class="col-lg-4 mb-5">
                     <h5>網站地圖</h5>
                     <a href="#home">首頁</a>
@@ -1018,18 +956,12 @@
                     <a href="#cases">實證案例</a>
                 </div>
             </div>
-
             <div class="footer-divider"></div>
-
-            <div class="footer-bottom">
-                &copy; BossDesign. All Rights Reserved.
-            </div>
+            <div class="footer-bottom">&copy; BossDesign. All Rights Reserved.</div>
         </div>
     </footer>
 
-    <button id="backToTop" title="回到頂部">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+    <button id="backToTop" title="回到頂部"><i class="fas fa-arrow-up"></i></button>
 
     <div class="modal fade" id="article1" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-magazine">
