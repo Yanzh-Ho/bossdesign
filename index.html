@@ -20,9 +20,9 @@
            全域變數 & 字體系統
            ======================================== */
         :root {
-            --primary-color: #2E8B57;   /* 永續綠 */
-            --secondary-color: #4169E1; /* 誠信藍 */
-            --accent-color: #FF8C00;    /* 數據橙 */
+            --primary-color: #2E8B57;   
+            --secondary-color: #4169E1; 
+            --accent-color: #FF8C00;    
             
             --footer-bg: #2F3A34;
             --footer-text: #E6EAE7;
@@ -180,17 +180,15 @@
             margin-top: 15px;
         }
 
-        /* ========================================
-           ★ [修改] Process 流程 - 回歸置中對齊 (Centered)
-           ======================================== */
+        /* Process 流程 - 置中對齊 */
         .process-step {
-            text-align: center;      /* 改回置中 */
+            text-align: center;      
             padding: 20px 15px;
             position: relative;
             height: 100%;
         }
         .process-icon-wrapper {
-            width: 80px;             /* 稍微加大 Icon */
+            width: 80px;             
             height: 80px;
             background: rgba(46, 139, 87, 0.1);
             color: var(--primary-color);
@@ -199,7 +197,7 @@
             align-items: center;
             justify-content: center;
             font-size: 2rem;
-            margin: 0 auto 25px;     /* 關鍵：左右 auto 讓它置中 */
+            margin: 0 auto 25px;     
             transition: 0.3s;
         }
         .process-step:hover .process-icon-wrapper {
@@ -218,17 +216,16 @@
             color: #666;
             line-height: 1.6;
             margin-bottom: 0;
-            min-height: 3.4em;       /* 保持兩行高度，避免長短腳 */
+            min-height: 3.4em;       
         }
         
-        /* 箭頭樣式 (僅在電腦版顯示，調整位置以配合置中設計) */
         @media (min-width: 992px) {
             .process-arrow::after {
                 content: "\f054";
                 font-family: "Font Awesome 5 Free";
                 font-weight: 900;
                 position: absolute;
-                top: 40px;           /* 對齊 Icon 中心 (80px的一半) + padding-top (20px) = 60px 左右微調 */
+                top: 40px;           
                 right: -15px;        
                 color: #e0e0e0;      
                 font-size: 1.5rem;
@@ -527,13 +524,27 @@
            ========================================================= */
         @media (max-width: 768px) {
             .navbar-brand { font-size: 1.3rem !important; }
+            
+            /* Banner 優化 */
             .carousel-caption { left: 0 !important; right: 0 !important; bottom: 25% !important; padding: 0 25px; text-align: center !important; }
             .carousel-caption h1 { font-size: 2.2rem !important; line-height: 1.3; margin-bottom: 15px; white-space: normal; }
             .carousel-caption h1 br { display: none; }
             .carousel-caption .lead { font-size: 1.1rem !important; margin-bottom: 20px; }
             .btn-hero { width: 100%; padding: 12px 0; }
+            
+            /* Section 標題 */
             .section-header h2 { font-size: 1.8rem; }
             .section-padding { padding: 80px 0; }
+            
+            /* ★ 統計數字修復 ★ */
+            .stat-number {
+                font-size: 2.5rem !important; /* 強制縮小字體 (原 4rem) */
+                white-space: nowrap;          /* 強制不換行，讓 STC 45 或 3000萬+ 在同一行 */
+                line-height: 1.2;
+            }
+            .stats-section { padding: 60px 0; } /* 縮減間距 */
+            
+            /* 關於我們 */
             .about-content .row .col-6 { width: 100%; margin-bottom: 15px !important; font-size: 1rem; }
             .founder-quote-minimal { margin-top: 40px; }
             .quote-text { font-size: 1.1rem; line-height: 1.5; }
