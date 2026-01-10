@@ -38,7 +38,6 @@
             --text-lg: 1.2rem;    
         }
 
-        /* 防止手機版橫向卷軸 (左右搖晃) */
         html, body {
             overflow-x: hidden;
             width: 100%;
@@ -145,7 +144,7 @@
             transform: translateY(-3px);
         }
 
-        /* 統計區塊 */
+        /* 統計區塊 (數字跑動區) */
         .stats-section {
             background-color: white;
             color: var(--text-dark);
@@ -158,14 +157,23 @@
             color: var(--accent-color);
             margin-bottom: 10px;
             line-height: 1;
-            white-space: nowrap; /* 防止數字換行 */
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: baseline;
+            justify-content: center;
         }
-        /* 統計數字單位微調 */
         .stat-unit {
-            font-size: 0.45em; /* 單位縮小 */
+            font-size: 0.5em; /* 單位縮小 */
             margin-left: 5px;
             color: var(--accent-color);
-            vertical-align: baseline;
+            font-weight: 500;
+        }
+        /* STC 這種在前綴的單位特別樣式 */
+        .stat-prefix {
+            font-size: 0.5em;
+            margin-right: 5px;
+            color: var(--accent-color);
+            font-weight: 500;
         }
         .stat-label {
             font-size: 1.1rem;
@@ -519,28 +527,57 @@
             .contact-header p { text-align: center; }
         }
 
-        /* Modal 樣式 */
-        .modal-magazine .modal-content { border: none; border-radius: var(--radius-card); overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+        /* Modal 樣式 (桌面版預設) */
+        .modal-magazine .modal-content { 
+            border: none; 
+            border-radius: var(--radius-card); 
+            overflow: hidden; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); 
+        }
         .magazine-layout { display: flex; flex-wrap: wrap; min-height: 600px; }
         .magazine-img { flex: 0 0 45%; background-size: cover; background-position: center; position: relative; }
         .magazine-content { flex: 0 0 55%; padding: 70px 60px; display: flex; flex-direction: column; justify-content: center; background: white; position: relative; }
         .magazine-tag { font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; margin-bottom: 25px; }
         .magazine-title { font-size: 2.5rem; margin-bottom: 35px; line-height: 1.3; font-weight: 700; color: var(--text-dark); }
         .magazine-content p.lead { font-size: 1.35rem; font-weight: 400; margin-bottom: 2rem; }
-        @media (max-width: 768px) { .magazine-img, .magazine-content { flex: 0 0 100%; } .magazine-img { height: 300px; } .magazine-content { padding: 40px 30px; } .magazine-title { font-size: 2rem; } }
 
         /* =========================================================
-           ★★★ RWD 特別優化區 (修復手機版跑版問題) ★★★
+           ★★★ RWD 特別優化區 (修復手機版跑版問題 & Modal) ★★★
            ========================================================= */
+        @media (max-width: 991px) { /* Tablet and Mobile */
+             /* 修復 Modal 在手機上佔滿全屏的問題 */
+            .modal-dialog.modal-magazine {
+                margin: 20px; /* 給予外部邊距，不貼死邊緣 */
+            }
+            .modal-magazine .modal-content {
+                max-height: 90vh; /* 限制最大高度 */
+                overflow-y: auto; /* 內容過長可捲動 */
+                border-radius: 20px; /* 增加圓角 */
+            }
+            .magazine-layout { 
+                flex-direction: column; 
+                min-height: auto; 
+            }
+            .magazine-img, .magazine-content { flex: 0 0 100%; } 
+            .magazine-img { 
+                height: 250px; /* 縮小圖片高度，不佔用太多空間 */
+            } 
+            .magazine-content { 
+                padding: 40px 30px; /* 縮小內距 */
+            } 
+            .magazine-title { font-size: 1.8rem; }
+            .magazine-content p.lead { font-size: 1.1rem; }
+        }
+
         @media (max-width: 768px) {
             
             /* 1. 全域設定 - 縮小間距 */
             body { padding-top: 70px; }
             .section-header h2 { font-size: 1.8rem; line-height: 1.3; }
             .section-header p.text-muted { font-size: 0.95rem; }
-            .section-padding { padding: 50px 0; } /* 手機版間距大幅縮小 */
+            .section-padding { padding: 50px 0; }
             
-            /* 2. Banner 修復 - 文字不跑版 */
+            /* 2. Banner 修復 */
             .carousel-item { height: 80vh; min-height: 500px; }
             .carousel-caption { 
                 bottom: 20% !important; 
@@ -554,7 +591,7 @@
                 margin-bottom: 15px; 
                 text-shadow: 0 2px 4px rgba(0,0,0,0.5);
                 white-space: normal;
-                word-break: keep-all; /* 防止中文斷詞 */
+                word-break: keep-all; 
             }
             .carousel-caption h1 br { display: none; }
             .carousel-caption .lead { 
@@ -564,7 +601,7 @@
             }
             .btn-hero { width: 80%; padding: 12px 0; font-size: 1rem; }
             
-            /* 3. ★ 統計數字修復 - 最重要的修復 ★ */
+            /* 3. ★ 統計數字修復 ★ */
             .stats-section { padding: 40px 0; background: #fafafa; }
             .stats-section .row {
                 display: flex;
@@ -578,16 +615,13 @@
                 justify-content: center;
                 align-items: center;
                 margin-bottom: 15px !important;
-                padding: 0 5px; /* 減少內邊距防止擠壓 */
+                padding: 0 5px; 
             }
             .stat-number {
-                font-size: 2.5rem !important; /* 縮小字體 */
+                font-size: 2.5rem !important; 
                 line-height: 1;
                 margin-bottom: 5px;
                 color: var(--accent-color);
-                display: flex;
-                align-items: baseline;
-                justify-content: center;
             }
             
             /* 4. 卡片與 Bento Grid 修復 */
@@ -602,7 +636,7 @@
             }
             .philosophy-card { padding: 30px 20px; }
             
-            /* 5. 流程區塊 - 強制置中對齊 */
+            /* 5. 流程區塊 */
             .process-arrow::after { display: none; } 
             .process-step { 
                 margin-bottom: 30px; 
@@ -614,7 +648,7 @@
                 margin: 0 auto 15px auto !important; 
             }
             
-            /* 6. 關於我們 - 內容置中 */
+            /* 6. 關於我們 */
             .about-img { margin-bottom: 30px; }
             .about-content h3 { font-size: 1.6rem; text-align: center; }
             .about-content p.lead { font-size: 1.1rem; text-align: center; }
@@ -695,20 +729,20 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-3 col-6 mb-5 mb-md-0">
-                    <div class="stat-number" data-target="3000">0</div>
-                    <div class="stat-label">預估十年節省 (萬)</div>
+                    <div class="stat-number" data-target="3000" data-unit="萬+">0</div>
+                    <div class="stat-label">預估十年節省</div>
                 </div>
                 <div class="col-md-3 col-6 mb-5 mb-md-0">
-                    <div class="stat-number" data-target="85">0</div>
-                    <div class="stat-label">% 廢棄物減量</div>
+                    <div class="stat-number" data-target="85" data-unit="%">0</div>
+                    <div class="stat-label">廢棄物減量</div>
                 </div>
                 <div class="col-md-3 col-6">
-                    <div class="stat-number" data-target="45">0</div>
+                    <div class="stat-number" data-target="45" data-prefix="STC">0</div>
                     <div class="stat-label">dB 專注隔音等級</div>
                 </div>
                 <div class="col-md-3 col-6">
-                    <div class="stat-number" data-target="100">0</div>
-                    <div class="stat-label">% 資產可回收率</div>
+                    <div class="stat-number" data-target="100" data-unit="%">0</div>
+                    <div class="stat-label">資產可回收率</div>
                 </div>
             </div>
         </div>
@@ -754,7 +788,7 @@
                             "設計不是為了拍照好看，而是為了解決企業未來十年的生存問題。<br>我們用數據與模組化，幫客戶把每一分錢都變成資產，而不是沈沒成本。"
                         </p>
                         <div class="quote-author">
-                            BossDesign 創始人
+                            BossDesign 創始人-Thomas Ting
                         </div>
                     </div>
                 </div>
@@ -898,7 +932,7 @@
         <div class="container">
             <div class="section-header">
                 <h6>Proven Cases</h6>
-                <h2>實證案例：新世代科技集團</h2>
+                <h2>實證案例：<br>知名手機殼公司</h2>
                 <p class="text-muted">從 15 家設計公司的比稿中脫穎而出</p>
             </div>
             <div class="row g-4">
@@ -1213,26 +1247,48 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // 數字動畫邏輯 (修復版：確保 HTML 單位標籤正確插入)
+        // 數字動畫邏輯 (修復版：增加迴圈累加功能)
         const counters = document.querySelectorAll('.stat-number');
-        const speed = 200;
-        
+        const speed = 200; // 數字越小跑得越快
+
         const animateCounters = () => {
             counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
                 const updateCount = () => {
-                    const count = +counter.innerText.replace(/[^0-9]/g, ''); // 簡單取出數字
+                    // 獲取目標值
+                    const target = +counter.getAttribute('data-target');
+                    // 獲取當前畫面上的值 (第一次是0)
+                    const count = +counter.innerText.replace(/[^0-9]/g, ''); 
                     
-                    // 這裡直接顯示最終結果，確保單位樣式正確
-                    if(target == 3000) {
-                        counter.innerHTML = '3000<span class="stat-unit">萬+</span>';
-                    } else if(target == 85) {
-                        counter.innerHTML = '85<span class="stat-unit">%</span>';
-                    } else if(target == 45) {
-                        // 手機版讓 STC 在數字旁邊
-                        counter.innerHTML = '<span class="stat-unit" style="margin-right:5px; margin-left:0;">STC</span>45';
-                    } else if(target == 100) {
-                        counter.innerHTML = '100<span class="stat-unit">%</span>';
+                    // 計算每次增加的步長
+                    const inc = target / speed;
+                    
+                    // 獲取單位 (data-unit="萬+" 或 data-unit="%")
+                    const unit = counter.getAttribute('data-unit') || '';
+                    // 獲取前綴 (data-prefix="STC")
+                    const prefix = counter.getAttribute('data-prefix') || '';
+
+                    // 檢查是否達到目標值
+                    if (count < target) {
+                        // 還沒到，繼續加
+                        // 這裡只更新數字，暫不顯示單位，避免動畫閃爍
+                        counter.innerText = Math.ceil(count + inc);
+                        // 使用 setTimeout 創造動畫效果
+                        setTimeout(updateCount, 20);
+                    } else {
+                        // 到了，設定為最終值，並加上單位 HTML
+                        let finalHtml = '';
+                        
+                        if(prefix) {
+                            finalHtml += `<span class="stat-prefix">${prefix}</span>`;
+                        }
+                        
+                        finalHtml += target;
+                        
+                        if(unit) {
+                            finalHtml += `<span class="stat-unit">${unit}</span>`;
+                        }
+                        
+                        counter.innerHTML = finalHtml;
                     }
                 };
                 updateCount();
@@ -1240,7 +1296,7 @@
         };
 
         // 觀察器
-        let options = { threshold: 0.1 }; // 降低閾值，讓它更容易觸發
+        let options = { threshold: 0.1 };
         let observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
