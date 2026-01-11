@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>常見問題 Q&A | BossDesign 博斯設計</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 引用首頁原本的 CSS 變數，確保風格一致 */
+        :root {
+            --primary-color: #2E8B57;   
+            --secondary-color: #4169E1; 
+            --accent-color: #FF8C00;    
+            --footer-bg: #2F3A34;
+            --footer-text: #E6EAE7;
+            --text-dark: #333333;
+            --text-gray: #555555;       
+            --light-bg: #F5F5F5;
+            --radius-btn: 50px;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--text-gray);
+            line-height: 1.75;
+            font-weight: 300;
+            padding-top: 80px; /* 避開 Navbar */
+        }
+
+        /* 導航欄樣式 (與首頁一致) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--text-dark) !important;
+            letter-spacing: 1px;
+        }
+        .navbar-brand span { color: var(--primary-color); }
+        .nav-link {
+            color: #555 !important;
+            font-weight: 500;
+            margin: 0 10px;
+            font-size: 1rem;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--primary-color) !important; }
+        .btn-nav-cta {
+            background-color: var(--primary-color);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: var(--radius-btn);
+        }
+        .btn-nav-cta:hover { background-color: #246B44; }
+
+        /* === 專屬頁面標頭 (Page Header) === */
+        .page-header {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('DSC01247.jpg'); /* 使用您的圖片 */
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+        .page-header h1 { font-size: 3rem; font-weight: 700; margin-bottom: 15px; }
+        .page-header p { font-size: 1.2rem; opacity: 0.9; font-weight: 400; }
+
+        /* === FAQ 樣式 === */
+        .accordion-item {
+            border: none;
+            margin-bottom: 15px;
+            border-radius: 12px !important;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            background: #fff;
+        }
+        .accordion-button {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding: 25px 30px;
+            background: #fff;
+        }
+        .accordion-button:not(.collapsed) {
+            color: var(--primary-color);
+            background-color: rgba(46, 139, 87, 0.05);
+            box-shadow: none;
+        }
+        .accordion-button:focus { box-shadow: none; }
+        .qa-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .accordion-body {
+            padding: 30px 30px 40px 77px;
+            color: var(--text-gray);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Footer 樣式 (與首頁一致) */
+        footer { 
+            background: var(--footer-bg); 
+            color: var(--footer-text); 
+            padding: 80px 0 30px; 
+            margin-top: 80px;
+        }
+        footer h5 { color: #FFFFFF; margin-bottom: 25px; font-weight: 700; }
+        .footer-desc { color: #C9D1CB; line-height: 1.8; margin-bottom: 30px; }
+        .footer-info p { color: #C9D1CB; margin-bottom: 8px; font-size: 0.95rem; }
+        footer a { color: #A9B4AE; text-decoration: none; display: block; margin-bottom: 10px; transition: 0.3s; }
+        footer a:hover { color: var(--primary-color); padding-left: 5px; }
+        .footer-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 40px 0; }
+        .footer-bottom { font-size: 0.85rem; color: #9FAAA4; text-align: center; }
+
+        @media (max-width: 768px) {
+            .page-header { height: 250px; }
+            .page-header h1 { font-size: 2rem; }
+            .accordion-button { padding: 20px; font-size: 1rem; }
+            .accordion-body { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Boss<span>Design</span> | 博斯設計</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">關於我們</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#process">合作流程</a></li> 
+                    <li class="nav-item"><a class="nav-link active" href="faq.html">常見問題</a></li> <li class="nav-item ms-3">
+                        <a class="nav-link btn-nav-cta" href="index.html#contact">免費評估</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>常見問題 Q & A</h1>
+            <p>關於 ESG 辦公室、施工流程與預算，我們為您一一解答</p>
+        </div>
+    </header>
+
+    <section class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="faqAccordion">
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true">
+                                <span class="qa-badge">Q</span>
+                                為什麼「可移動隔間」比傳統輕隔間更省錢？
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <span class="fw-bold text-success mb-2 d-block">A: 因為看的時間長度不同。</span>
+                                傳統輕隔間雖然初期造價便宜，但一旦需要變更格局（例如擴編、部門調整），就必須拆除重做，產生大量廢棄物與二次費用。BossDesign 的模組化隔間，初期投入雖略高，但能在未來 10 年內重複拆組使用。根據我們的數據，只要發生一次格局變動，總成本就會低於傳統裝修。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                <span class="qa-badge">Q</span>
+                                我的辦公室坪數不大（約 40-60 坪），適合做 ESG 設計嗎？
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <span class="fw-bold text-success mb-2 d-block">A: 非常適合，小坪數更需要精準設計。</span>
+                                ESG 不分大小。在小坪數中，我們更專注於「多功能性」與「健康環境」。例如利用可移動隔間將會議室變為員工休息區，或是透過良好的通風與無毒建材，直接提升員工的工作效率。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                <span class="qa-badge">Q</span>
+                                施工期間會影響我們的正常上班嗎？
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <span class="fw-bold text-success mb-2 d-block">A: 影響極低，我們採用「低塵低噪」工法。</span>
+                                這是我們與傳統設計公司最大的不同。我們 70% 的組件都在工廠預製完成，現場只需組裝。這意味著沒有大量的粉塵飛揚，也沒有刺鼻的油漆味。我們甚至可以配合週末施工，週一上班時，您的新辦公室就已經準備好了。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                                <span class="qa-badge">Q</span>
+                                導入 ESG 設計，真的能幫助企業徵才嗎？
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <span class="fw-bold text-success mb-2 d-block">A: 絕對可以，這是年輕世代最看重的價值之一。</span>
+                                根據調查，Z 世代人才在求職時，高度重視企業的永續形象與工作環境。一個會呼吸、重視隱私且具備永續概念的辦公室，是企業最直接的雇主品牌展示。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
+                                <span class="qa-badge">Q</span>
+                                你們的服務範圍包含哪些地區？
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <span class="fw-bold text-success mb-2 d-block">A: 我們主要服務台北、台中地區。</span>
+                                目前我們的團隊主力在北部與中部，但若您有其他地區的大型專案需求，也歡迎聯絡我們進行評估。
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="text-center mt-5">
+                    <p class="text-muted mb-3">還有其他問題嗎？歡迎直接聯絡我們。</p>
+                    <a href="index.html#contact" class="btn btn-nav-cta">前往聯絡表單</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5">
+                    <h5>BossDesign 博斯設計</h5>
+                    <p class="footer-desc">
+                        以策略設計為核心，讓辦公空間成為企業永續競爭力的一部分。
+                    </p>
+                    <div class="footer-info">
+                        <p><i class="fas fa-phone-alt me-2"></i>電話：02-2265-0351 / 04-2359-9785</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i>台北市信義區信義路五段5號3樓C40（捷運101站1號出口）</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i>台中市西屯區工業區一路96-3號</p>
+                        <p><i class="far fa-clock me-2"></i>營業時間：周一至周五 9:00 – 18:00</p>
+                    </div>
+                </div>
+                
+                
+                <div class="col-lg-4 mb-5">
+                    <h5>網站地圖</h5>
+                    <a href="index.html">首頁</a>
+                    <a href="index.html#about">關於我們</a>
+                    <a href="index.html#process">合作流程</a>
+                    <a href="index.html#how-we-design">如何設計</a>
+                    <a href="faq.html">常見問題</a> </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; BossDesign. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
