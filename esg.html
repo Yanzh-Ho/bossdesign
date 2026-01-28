@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BossDesign 博斯設計 | 建造會呼吸的辦公室</title>
+
+    <meta name="description" content="博斯設計 (BossDesign) 提供 ESG 辦公室解決方案，結合聲學、光環境與靈活隔間，為企業打造可持續、高效率的工作生態系統。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="BossDesign 博斯設計 | 建造會呼吸的辦公室">
+    <meta property="og:description" content="十年節省 3000 萬的辦公室革命。我們不只設計空間，更打造企業的十年韌性與 ESG 治理。">
+    <meta property="og:image" content="og-image.jpg">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           全域變數 - 專業版配色 (Professional Palette)
+           ======================================== */
+        :root {
+            /* 品牌主色：深邃森林綠，傳遞穩重與永續感 */
+            --primary-color: #1A4D3E;       
+            /* 強調色：自然綠，用於按鈕或高亮 */
+            --accent-green: #2E8B57;        
+            /* 輔助色：深藍灰，增加科技與信任感 */
+            --secondary-color: #34495E;     
+            
+            /* 文字與背景 */
+            --text-dark: #2C3E50;
+            --text-gray: #666666;
+            --light-bg: #F8F9FA;
+            --white: #FFFFFF;
+            
+            /* 功能色 */
+            --line-green: #06C755;
+            
+            /* 陰影系統 */
+            --shadow-sm: 0 5px 15px rgba(0,0,0,0.05);
+            --shadow-hover: 0 15px 35px rgba(26, 77, 62, 0.15);
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.8; /* 增加行高，提升閱讀舒適度 */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            letter-spacing: 0.05em; /* 標題微幅增加字距 */
+            color: var(--primary-color);
+        }
+
+        /* 導航欄優化 */
+        .navbar {
+            transition: all 0.4s ease;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+        }
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: var(--primary-color) !important;
+            letter-spacing: 2px;
+        }
+        .navbar-brand span { color: var(--accent-green); }
+        .nav-link {
+            color: var(--secondary-color) !important;
+            font-weight: 500;
+            margin: 0 12px;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .btn-nav-cta {
+            background-color: var(--primary-color);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .btn-nav-cta:hover { 
+            background-color: var(--accent-green); 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 139, 87, 0.3);
+        }
+
+        /* 輪播 Hero 區塊 */
+        .carousel-item {
+            height: 100vh;
+            min-height: 600px;
+            background: no-repeat center center scroll;
+            background-size: cover;
+        }
+        .carousel-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(26,77,62,0.85) 0%, rgba(0,0,0,0.4) 100%);
+        }
+        .carousel-caption {
+            bottom: 35%;
+            left: 10%;
+            text-align: left;
+        }
+        .carousel-caption h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: white;
+            line-height: 1.3;
+        }
+        .carousel-caption .lead {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        .btn-hero {
+            background-color: var(--white);
+            color: var(--primary-color);
+            border: none;
+            padding: 16px 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .btn-hero:hover {
+            background-color: var(--accent-green);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* 統計數據區塊 */
+        .stats-section {
+            background-color: var(--white);
+            padding: 100px 0;
+            position: relative;
+            top: -60px;
+            margin-bottom: -60px;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.03);
+            z-index: 10;
+        }
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* 通用區塊標題 */
+        .section-padding { padding: 120px 0; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h6 {
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 核心支柱卡片 */
+        .philosophy-card {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: none;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            height: 100%;
+        }
+        .philosophy-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--accent-green);
+            margin-bottom: 30px;
+            background: rgba(46, 139, 87, 0.1);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        .card-title { font-size: 1.5rem; margin-bottom: 20px; }
+        .card-text { color: var(--text-gray); line-height: 1.7; }
+
+        /* 產品與 Blog 卡片通用 */
+        .product-card, .blog-card {
+            border: none;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover, .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        .product-img-box {
+            height: 220px;
+            overflow: hidden;
+        }
+        .product-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+        .product-card:hover .product-img-box img { transform: scale(1.05); }
+        .product-body { padding: 25px; text-align: center; }
+
+        .blog-body {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .blog-tag {
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .blog-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .blog-desc {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* 案例區塊 */
+        .project-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+        .project-item img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: 0.6s;
+        }
+        .project-item:hover img { transform: scale(1.08); }
+        .project-info {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            padding: 40px 30px 25px;
+            color: white;
+        }
+
+        /* 關於我們 */
+        .about-section { background-color: var(--light-bg); }
+        .about-content h3 { 
+            font-weight: 800; 
+            margin-bottom: 25px; 
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+        
+        /* 聯絡區塊 */
+        .contact-box {
+            background: white;
+            padding: 60px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+        .contact-btn-direct {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+        .contact-btn-direct i { margin-right: 10px; font-size: 1.4rem; }
+        
+        .btn-phone {
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        .btn-phone:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .btn-line {
+            background-color: var(--line-green);
+            color: white;
+            border: 2px solid var(--line-green);
+        }
+        .btn-line:hover {
+            background-color: #05a546;
+            border-color: #05a546;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .form-control, .form-select {
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            background-color: #fcfcfc;
+        }
+        .form-control:focus, .form-select:focus {
+            box-shadow: 0 0 0 4px rgba(46, 139, 87, 0.1);
+            border-color: var(--accent-green);
+        }
+
+        .btn-submit {
+            background: var(--primary-color);
+            color: white;
+            width: 100%;
+            padding: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        .btn-submit:hover { background: var(--accent-green); }
+
+        /* 回到頂部按鈕 */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+        #backToTop:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        /* 頁尾 */
+        footer {
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 90px 0 30px;
+        }
+        footer h5 { color: white; margin-bottom: 25px; font-weight: 700; letter-spacing: 1px; }
+        footer a { color: #888; text-decoration: none; display: block; margin-bottom: 15px; transition: 0.3s; }
+        footer a:hover { color: var(--primary-color); padding-left: 5px; color: white; }
+
+        /* 彈窗樣式 */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .modal-header { border-bottom: none; padding: 30px 30px 10px; }
+        .modal-body { padding: 10px 30px 40px; }
+
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Boss<span>Design</span> | 博斯設計</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#home">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">關於我們</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#how-we-design">如何設計</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#insights">觀點洞察</a></li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link btn-nav-cta" href="#contact">免費評估</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image: url('S__4833352_0.jpg')">
+                <div class="carousel-overlay"></div>
+                <div class="carousel-caption">
+                    <div class="container">
+                        <h1 class="animate-up">建造會呼吸的<br>工作生態系統</h1>
+                        <p class="lead">我們不只設計空間，我們打造十年韌性。<br>從源頭杜絕浪費，實現真正的 ESG 治理。</p>
+                        <a href="#contact" class="btn btn-hero mt-3">獲取 ESG 辦公室評估報告</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('S__4833352_0.jpg')">
+                <div class="carousel-overlay"></div>
+                <div class="carousel-caption">
+                    <div class="container">
+                        <h1>十年節省 3,000 萬的<br>辦公室革命</h1>
+                        <p class="lead">初始即節省，未來更增值。<br>將裝修支出轉化為可移動的企業資產。</p>
+                        <a href="#cases" class="btn btn-hero mt-3">查看財務分析數據</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <div class="stat-number" data-target="3000">0</div>
+                    <div class="stat-label">預估十年節省 (萬)</div>
+                </div>
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <div class="stat-number" data-target="85">0</div>
+                    <div class="stat-label">% 廢棄物減量</div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-number" data-target="45">0</div>
+                    <div class="stat-label">dB 專注隔音等級</div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">% 資產可回收率</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h6>Manifesto</h6>
+                <h2>關於我們：非傳統設計公司</h2>
+                <div style="width: 60px; height: 3px; background: var(--primary-color); margin: 20px auto;"></div>
+                <p>我們不定義風格，我們定義未來的生存方式</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="philosophy-card">
+                        <div class="card-icon"><i class="fas fa-eye"></i></div>
+                        <h4 class="card-title">視覺與心理</h4>
+                        <p class="card-text">透過透明度與界線的設計，創造「熟悉的陌生人」心理安全距離。運用簡約美學減少認知負荷，提升專注與創意。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="philosophy-card">
+                        <div class="card-icon"><i class="fas fa-chart-pie"></i></div>
+                        <h4 class="card-title">成本與治理</h4>
+                        <p class="card-text">「當用則用，當省則省」。將預算從固定裝修轉向可移動資產。透過透明決策，體現公司治理的高度。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="philosophy-card">
+                        <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+                        <h4 class="card-title">靈活與韌性</h4>
+                        <p class="card-text">擁抱組織變動。利用活動隔間與模組家具，實現「無干擾調整」。讓辦公室成為伴隨企業成長的有機體。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-we-design" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h6>How We Design</h6>
+                <h2>我們如何設計</h2>
+                <p>深度系統整合：不只是好看，更要好用</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <div class="product-img-box">
+                            <img src="S__4833352_0.jpg" alt="Acoustic">
+                        </div>
+                        <div class="product-body">
+                            <h4>聲學設計</h4>
+                            <p class="text-muted small">分層吸音與可升級隔音策略</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <div class="product-img-box">
+                            <img src="S__4833352_0.jpg" alt="Lighting">
+                        </div>
+                        <div class="product-body">
+                            <h4>光環境設計</h4>
+                            <p class="text-muted small">生理節律與無眩光照明</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <div class="product-img-box">
+                            <img src="S__4833352_0.jpg" alt="Behavior">
+                        </div>
+                        <div class="product-body">
+                            <h4>行為設計</h4>
+                            <p class="text-muted small">不期而遇的交流空間</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <div class="product-img-box">
+                            <img src="S__4833352_0.jpg" alt="Flexible">
+                        </div>
+                        <div class="product-body">
+                            <h4>靈活資產</h4>
+                            <p class="text-muted small">可帶走的隔間與家具</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="insights" class="section-padding bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h6>Insights</h6>
+                <h2>觀點與洞察</h2>
+                <p>打破迷思，重新定義辦公室價值</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="blog-card" data-bs-toggle="modal" data-bs-target="#article1">
+                        <div class="blog-body">
+                            <div class="blog-tag text-success">Myth Busting</div>
+                            <h4 class="blog-title">打破高規格迷思：為什麼你不需要最貴的建材？</h4>
+                            <p class="blog-desc">很多人以為好辦公室等於昂貴的材料。事實上，聰明的預算分配與模組化設計，才能帶來真正的價值。</p>
+                            <div class="mt-auto">
+                                <button class="btn btn-link p-0 text-decoration-none fw-bold" style="color: var(--primary-color);">閱讀全文 <i class="fas fa-arrow-right small"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blog-card" data-bs-toggle="modal" data-bs-target="#article2">
+                        <div class="blog-body">
+                            <div class="blog-tag text-primary">Strategy</div>
+                            <h4 class="blog-title">我們是設計公司，但不是傳統的那種</h4>
+                            <p class="blog-desc">傳統設計公司關注「完工」，我們關注「十年運營」。了解 BossDesign 如何協助企業應對未來的變動。</p>
+                            <div class="mt-auto">
+                                <button class="btn btn-link p-0 text-decoration-none fw-bold" style="color: var(--primary-color);">閱讀全文 <i class="fas fa-arrow-right small"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blog-card" data-bs-toggle="modal" data-bs-target="#article3">
+                        <div class="blog-body">
+                            <div class="blog-tag text-warning">Quarterly Report</div>
+                            <h4 class="blog-title">2026 企業 ESG 空間策略定錨</h4>
+                            <p class="blog-desc">當 AI 與 ESG 成為標配，你的辦公室準備好了嗎？下一季度的空間策略重點分析。</p>
+                            <div class="mt-auto">
+                                <button class="btn btn-link p-0 text-decoration-none fw-bold" style="color: var(--primary-color);">閱讀全文 <i class="fas fa-arrow-right small"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cases" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h6>Proven Cases</h6>
+                <h2>實證案例：新世代科技集團</h2>
+                <p>從 15 家設計公司的比稿中脫穎而出</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="project-item" data-bs-toggle="modal" data-bs-target="#projectModal">
+                        <img src="S__4833350_0.jpg" alt="Flexibility">
+                        <div class="project-info">
+                            <h5>市政廣場模式</h5>
+                            <p class="small mb-0">150人會議區靈活轉換</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="project-item" data-bs-toggle="modal" data-bs-target="#projectModal">
+                        <img src="S__4833351_0.jpg" alt="Acoustic">
+                        <div class="project-info">
+                            <h5>靜音專注艙</h5>
+                            <p class="small mb-0">STC 45dB 認證隱私空間</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="project-item" data-bs-toggle="modal" data-bs-target="#projectModal">
+                        <img src="S__4833350_0.jpg" alt="Material">
+                        <div class="project-info">
+                            <h5>材料減量設計</h5>
+                            <p class="small mb-0">減少廢棄物，展現真實性</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0 text-center">
+                    <img src="S__4833350_0.jpg" class="img-fluid rounded shadow-lg" style="width: 100%; max-width: 500px; aspect-ratio: 5 / 4; object-fit: cover; display: block; margin: 0 auto;" alt="About BossDesign">
+                </div>
+                <div class="col-lg-7 ps-lg-5 about-content">
+                    <h3>從覺醒到專業化的旅程</h3>
+                    <p class="lead text-muted">我們見證過太多塵土飛揚的工地與被浪費的裝修預算。</p>
+                    <p>博斯設計（BossDesign）的成立，旨在打破「裝修即浪費」的惡性循環。我們結合策略顧問與空間設計，致力於為企業打造可持續發展的工作生態系統。</p>
+                    <div class="row mt-4">
+                        <div class="col-6 mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i> 策略空間規劃
+                        </div>
+                        <div class="col-6 mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i> 數據驅動設計
+                        </div>
+                        <div class="col-6 mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i> 全生命週期管理
+                        </div>
+                        <div class="col-6 mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i> ESG 報告支援
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-box">
+                        <div class="text-center mb-5">
+                            <h2>您的辦公室準備好迎接未來了嗎？</h2>
+                            <p class="text-muted">您可以選擇以下方式聯絡我們，或填寫表單。</p>
+                        </div>
+
+                        <div class="row justify-content-center mb-5">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <a href="tel:0000000000" class="contact-btn-direct btn-phone">
+                                    <i class="fas fa-phone-alt"></i> 0000000000
+                                </a>
+                            </div>
+                            <div class="col-md-5">
+                                <a href="https://line.me/ti/p/fSAK-T32jT" target="_blank" class="contact-btn-direct btn-line">
+                                    <i class="fab fa-line"></i> 加 LINE 線上諮詢
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <form name="contact" method="POST" data-netlify="true">
+                            <input type="hidden" name="form-name" value="contact" />
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">您的姓名</label>
+                                    <input type="text" name="name" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">公司 Email</label>
+                                    <input type="email" name="email" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">您目前最困擾的辦公室問題？</label>
+                                <select name="issue" class="form-select" id="issueSelect" onchange="toggleOtherInput()">
+                                    <option value="空間不足">空間不夠用 / 需要擴編</option>
+                                    <option value="噪音干擾">噪音干擾 / 會議室不足</option>
+                                    <option value="裝修老舊">裝修老舊 / 風格過時</option>
+                                    <option value="ESG需求">希望導入 ESG / 永續設計</option>
+                                    <option value="其他">其他 (請說明)</option>
+                                </select>
+                                <div id="otherInputDiv" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="issue_other" class="form-control" placeholder="請具體描述您的需求...">
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">備註訊息</label>
+                                <textarea name="message" class="form-control" rows="4"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-submit">索取評估報告</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-4">
+                    <h5>BossDesign 博斯設計</h5>
+                    <p class="text-muted small">我們致力於通過策略性設計，協助企業將辦公空間轉化為長期的戰略資產。建造會呼吸的辦公室，實踐真實的 ESG 價值。</p>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <h5>網站地圖</h5>
+                    <a href="#home">首頁</a>
+                    <a href="#about">關於我們</a>
+                    <a href="#how-we-design">如何設計</a>
+                    <a href="#insights">觀點洞察</a>
+                    <a href="#cases">實證案例</a>
+                </div>
+            </div>
+
+            <div class="border-top border-secondary pt-4 mt-4 text-center text-muted small">
+                <p>&copy; 2026 BossDesign. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="backToTop" title="回到頂部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">案例詳情</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="S__4833352_0.jpg" class="img-fluid mb-3 rounded" alt="Detail">
+                    <h4 class="mb-3">新世代科技集團總部</h4>
+                    <p class="text-muted text-start">這是一個典型的 ESG 轉型案例。透過導入活動隔間與聲學系統，我們協助客戶在 3200 萬的預算內，實現了原本需要 5000 萬傳統裝修才能達到的功能，並為未來十年節省了可觀的營運成本。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="article1" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">打破高規格迷思</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="mb-4">為什麼你不需要最貴的建材？</h2>
+                    <p class="lead text-muted mb-4">預算應該花在「行為設計」與「靈活性」，而不是昂貴的石頭上。</p>
+                    <h5>1. 建材的邊際效應遞減</h5>
+                    <p>許多企業主誤以為使用進口大理石或昂貴的原木才能展現企業氣度。然而，在 ESG 的浪潮下，過度裝修反而是一種負擔。我們發現，員工的滿意度來自於「光線」、「聲音控制」與「隱私」，而非牆壁上的貼皮價格。</p>
+                    <hr class="my-4">
+                    <h5>2. 模組化的真實價值</h5>
+                    <p>傳統高規格裝修往往是「固定的」。BossDesign 提倡將預算投入在可移動的「模組化隔間」與「聲學家具」。當組織擴編時，這些資產可以跟著你走，這才是真正的投資。</p>
+                    <div class="alert alert-success mt-4">
+                        <strong>BossDesign 觀點：</strong> 最好的建材，是那些能適應未來的材料，而不是最貴的材料。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="article2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">非傳統設計公司</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="mb-4">我們不只是設計師，我們是你的空間策略顧問</h2>
+                    <p>傳統設計公司的任務通常在「完工驗收」那天就結束了。但對 BossDesign 來說，完工只是開始。</p>
+                    <h5 class="mt-4">關注「十年運營」而非「完工美照」</h5>
+                    <p>大多數的設計只為了拍照好看，但忽略了維護成本與變動彈性。我們在設計之初，就導入了「資產回收率」的計算。這意味著我們在幫你省下未來十年的錢。</p>
+                    <h5 class="mt-4">數據驅動的決策</h5>
+                    <p>我們不憑感覺設計。透過分析貴公司的組織架構圖與成長預測，我們規劃出的空間能像有機體一樣生長。這不是傳統室內設計師會做的事，但這是企業最需要的。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="article3" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">2026 趨勢報告</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="mb-4">2026 企業 ESG 空間策略定錨</h2>
+                    <p>隨著碳費徵收與 AI 工具的普及，辦公室的角色正在劇烈轉變。</p>
+                    <ul class="list-group list-group-flush my-4">
+                        <li class="list-group-item"><strong>趨勢一：裝修履歷 (Digital Passport)</strong><br>未來的建材都將擁有數位護照，紀錄碳足跡與回收路徑。</li>
+                        <li class="list-group-item"><strong>趨勢二：專注力紅利</strong><br>在 AI 協助處理雜務後，人需要更深度的專注。高規格的「靜音艙」將成為標配。</li>
+                        <li class="list-group-item"><strong>趨勢三：極致彈性</strong><br>混合辦公成常態，固定的會議室將消失，取而代之的是可隨時重組的協作區。</li>
+                    </ul>
+                    <p>BossDesign 已準備好協助您的企業迎接這些挑戰。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 數字動畫邏輯
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target;
+                        if(target == 3000) counter.innerText = target + '萬+';
+                        if(target == 85) counter.innerText = target + '%';
+                        if(target == 45) counter.innerText = 'STC ' + target;
+                        if(target == 100) counter.innerText = target + '%';
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        // 觀察器
+        let options = { threshold: 0.5 };
+        let observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, options);
+        document.querySelectorAll('.stats-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Navbar 滾動效果 (配合 CSS 的 .scrolled 類別)
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 手機版選單自動收合
+        const navLinks = document.querySelectorAll('.nav-link');
+        const menuToggle = document.getElementById('navbarContent');
+        const bsCollapse = new bootstrap.Collapse(menuToggle, {toggle:false});
+        navLinks.forEach((l) => {
+            l.addEventListener('click', () => {
+                if(window.innerWidth < 992) {
+                    bsCollapse.hide();
+                }
+            })
+        });
+
+        // 回到頂部按鈕邏輯
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 控制「其他」選項的輸入框顯示/隱藏
+        function toggleOtherInput() {
+            var select = document.getElementById("issueSelect");
+            var otherDiv = document.getElementById("otherInputDiv");
+            var otherInput = otherDiv.querySelector("input");
+
+            if (select.value === "其他") {
+                otherDiv.style.display = "block"; // 顯示輸入框
+                otherInput.required = true;       // 變成必填
+            } else {
+                otherDiv.style.display = "none";  // 隱藏輸入框
+                otherInput.required = false;      // 取消必填
+                otherInput.value = "";            // 清空內容
+            }
+        }
+
+    </script>
+</body>
+</html>

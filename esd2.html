@@ -1,0 +1,694 @@
+<!DOCTYPE html> <!-- HTML5 文件類型宣告 -->
+<html lang="zh-TW"> <!-- HTML 根元素，設定語言為繁體中文 -->
+<head> <!-- 網頁頭部區塊開始，包含元資料與樣式 -->
+    <!-- 網頁基本設定：字元編碼、響應式視窗、頁面標題 -->
+    <meta charset="UTF-8"> <!-- 設定字元編碼為 UTF-8，支援多國語言 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 響應式設計：視窗寬度等於裝置寬度，初始縮放比例 1.0 -->
+    <title>TRL Acoustic - Global Partition Solutions</title> <!-- 瀏覽器標籤頁顯示的網頁標題 -->
+    
+    <!-- 引入外部資源庫：Bootstrap 5 框架、Font Awesome 圖示、Roboto 字體 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- 引入 Bootstrap 5 CSS 框架，提供響應式網格系統與元件樣式 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"> <!-- 引入 Font Awesome 6.0 圖示字體庫 -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"> <!-- 引入 Google Fonts 的 Roboto 字體，包含 300/400/500/700 四種粗細 -->
+
+    <style>
+        /* ========================================
+           全域 CSS 變數設定
+           定義網站主要顏色，方便統一管理
+           ======================================== */
+        :root { /* CSS 根偽類選擇器，用於定義全域變數 */
+            --primary-color: #0069D9;  /* 主要品牌顏色：TRL 企業藍色 (#0069D9) */
+            --secondary-color: #333;   /* 次要顏色：深灰色 (#333)，用於標題與重要文字 */
+            --light-bg: #f8f9fa;       /* 淺灰背景色 (#f8f9fa)，用於區塊背景 */
+            --text-gray: #666;         /* 灰色文字 (#666)，用於次要說明文字 */
+        } /* 變數定義結束 */
+
+        /* 全域 body 樣式：設定字型、顏色、防止水平滾動 */
+        body { /* 網頁主體樣式 */
+            font-family: 'Roboto', sans-serif; /* 字體設定：優先使用 Roboto，備用無襯線字體 */
+            color: var(--secondary-color); /* 文字顏色：使用深灰色變數 (#333) */
+            overflow-x: hidden; /* 隱藏水平方向的滾動條，防止橫向溢出 */
+        } /* body 樣式結束 */
+
+        /* ========================================
+           導航欄樣式 (Navigation)
+           固定於頂部，含平滑過渡效果與陰影
+           ======================================== */
+        .navbar { /* 導航欄容器樣式 */
+            transition: all 0.3s ease;             /* 所有屬性變化時使用 0.3 秒的緩動過渡效果 */
+            background: rgba(255, 255, 255, 0.95); /* 背景色：95% 不透明度的白色，略帶透明效果 */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* 陰影：垂直偏移 2px，模糊半徑 10px，10% 不透明度的黑色 */
+            padding: 15px 0; /* 內距：上下各 15px，左右 0 */
+        } /* navbar 樣式結束 */
+        .navbar-brand { /* 導航欄品牌 Logo/名稱樣式 */
+            font-weight: 800; /* 字體粗細：800（超粗體） */
+            font-size: 1.5rem; /* 字體大小：1.5 倍根元素字體大小（約 24px） */
+            color: var(--primary-color) !important; /* 文字顏色：企業藍色，!important 強制覆蓋其他樣式 */
+            text-transform: uppercase; /* 文字轉換：全部轉為大寫字母 */
+        } /* navbar-brand 樣式結束 */
+        .navbar-brand span { color: #d9534f; } /* 品牌名稱中的 span 元素：紅色強調 (#d9534f) */
+        .nav-link { /* 導航連結樣式 */
+            color: #333 !important; /* 文字顏色：深灰色，強制覆蓋 */
+            font-weight: 500; /* 字體粗細：500（中等粗體） */
+            margin: 0 10px; /* 外距：上下 0，左右各 10px */
+            text-transform: uppercase; /* 文字轉換：全部大寫 */
+            font-size: 0.9rem; /* 字體大小：0.9 倍根元素字體（約 14.4px） */
+        } /* nav-link 樣式結束 */
+        .nav-link:hover, .nav-link.active { /* 導航連結的懸停狀態與啟用狀態 */
+            color: var(--primary-color) !important; /* 懸停或啟用時變為企業藍色 */
+        } /* hover/active 樣式結束 */
+
+        /* ========================================
+           輪播橫幅樣式 (Carousel Hero)
+           首頁全螢幕輪播圖效果
+           ======================================== */
+        .carousel-item { /* 輪播項目容器 */
+            height: 100vh;     /* 高度：100% 視窗高度（viewport height），達到全螢幕效果 */
+            min-height: 500px; /* 最小高度：500px，防止在小螢幕上過度壓縮 */
+            background: no-repeat center center scroll; /* 背景：不重複、水平垂直置中、隨頁面滾動 */
+            background-size: cover; /* 背景大小：覆蓋整個容器，保持比例裁切 */
+        } /* carousel-item 樣式結束 */
+        .carousel-caption { /* 輪播文字說明區塊 */
+            bottom: 30%; /* 距離底部 30% 的位置 */
+            z-index: 2; /* 堆疊順序：2，顯示在遮罩層之上 */
+        } /* carousel-caption 樣式結束 */
+        .carousel-caption h1 { /* 輪播主標題樣式 */
+            font-size: 3.5rem; /* 字體大小：3.5 倍根元素字體（約 56px） */
+            font-weight: 700; /* 字體粗細：700（粗體） */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6); /* 文字陰影：右下偏移 2px，模糊 4px，60% 不透明黑色 */
+            margin-bottom: 20px; /* 下方外距：20px */
+        } /* h1 樣式結束 */
+        /* 輪播圖上層的半透明黑色遮罩，讓文字更清晰 */
+        .carousel-overlay { /* 輪播遮罩層 */
+            position: absolute; /* 定位方式：絕對定位，脫離正常文檔流 */
+            top: 0; left: 0; right: 0; bottom: 0; /* 上下左右都為 0，覆蓋整個父容器 */
+            background: rgba(0, 0, 0, 0.4); /* 背景色：40% 不透明度的黑色遮罩，增強文字可讀性 */
+        } /* carousel-overlay 樣式結束 */
+
+        /* ========================================
+           統計數據區塊樣式 (Stats Counter)
+           展示公司業績數據（年資、專案數等）
+           ======================================== */
+        .stats-section { /* 統計數據區塊容器 */
+            background-color: var(--primary-color); /* 背景色：使用企業藍色變數 (#0069D9) */
+            color: white;                           /* 文字顏色：白色，與深色背景形成對比 */
+            padding: 60px 0;                        /* 內距：上下各 60px，左右 0 */
+        } /* stats-section 樣式結束 */
+        .stat-item { /* 單個統計項目容器 */
+            text-align: center; /* 文字對齊：置中 */
+            padding: 20px; /* 內距：四周各 20px */
+        } /* stat-item 樣式結束 */
+        .stat-number { /* 統計數字樣式 */
+            font-size: 3rem; /* 字體大小：3 倍根元素字體（約 48px） */
+            font-weight: 700; /* 字體粗細：700（粗體） */
+            margin-bottom: 10px; /* 下方外距：10px */
+        } /* stat-number 樣式結束 */
+        .stat-label { /* 統計標籤文字樣式 */
+            font-size: 1.1rem; /* 字體大小：1.1 倍根元素字體（約 17.6px） */
+            opacity: 0.9; /* 不透明度：90%，略微透明 */
+            text-transform: uppercase; /* 文字轉換：全部大寫 */
+        } /* stat-label 樣式結束 */
+
+        /* ========================================
+           產品區塊樣式 (Products)
+           展示公司產品卡片與標題
+           ======================================== */
+        .section-padding { padding: 80px 0; }  /* 區塊內距：上下各 80px，左右 0，各區塊統一間距 */
+        .section-header { /* 區塊標題容器 */
+            text-align: center;   /* 文字對齊：置中 */
+            margin-bottom: 50px;  /* 下方外距：50px，與下方內容保持距離 */
+        } /* section-header 樣式結束 */
+        .section-header h2 { /* 區塊主標題 */
+            font-weight: 700; /* 字體粗細：700（粗體） */
+            text-transform: uppercase; /* 文字轉換：全部大寫 */
+            color: #333; /* 文字顏色：深灰色 */
+        } /* h2 樣式結束 */
+        .section-header .line { /* 標題下方的裝飾線 */
+            width: 60px; /* 寬度：60px */
+            height: 3px; /* 高度：3px */
+            background: var(--primary-color); /* 背景色：企業藍色 */
+            margin: 15px auto; /* 外距：上下 15px，左右自動（水平置中） */
+        } /* line 樣式結束 */
+        
+        /* 產品卡片：鼠標懸停時會上浮並產生陰影 */
+        .product-card { /* 產品卡片容器 */
+            background: white; /* 背景色：白色 */
+            transition: 0.3s;         /* 過渡動畫時間：0.3 秒，適用於所有可動畫屬性 */
+            border: 1px solid #eee;   /* 邊框：1px 實線，淡灰色 (#eee) */
+            margin-bottom: 30px; /* 下方外距：30px */
+        } /* product-card 樣式結束 */
+        .product-card:hover { /* 產品卡片懸停狀態 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* 陰影：垂直偏移 10px，模糊 30px，10% 不透明黑色 */
+            transform: translateY(-5px);             /* 變形：Y軸向上平移 5px，產生上浮效果 */
+        } /* hover 樣式結束 */
+        .product-img-box { /* 產品圖片容器 */
+            height: 250px; /* 固定高度：250px */
+            overflow: hidden; /* 溢出處理：隱藏超出部分 */
+        } /* product-img-box 樣式結束 */
+        .product-img-box img { /* 產品圖片本身 */
+            width: 100%; /* 寬度：100% 填滿容器 */
+            height: 100%; /* 高度：100% 填滿容器 */
+            object-fit: cover; /* 物件適配：保持比例覆蓋容器，可能裁切 */
+            transition: 0.5s; /* 過渡動畫：0.5 秒 */
+        } /* img 樣式結束 */
+        .product-card:hover .product-img-box img { /* 卡片懸停時的圖片效果 */
+            transform: scale(1.1); /* 變形：放大至 1.1 倍，產生放大效果 */
+        } /* hover img 樣式結束 */
+        .product-body { padding: 25px; text-align: center; } /* 產品內容區：內距 25px，文字置中 */
+
+        /* ========================================
+           項目展示樣式 (Projects / Portfolio)
+           滑鼠懸停時顯示藍色遮罩與專案資訊
+           ======================================== */
+        .project-item { /* 專案項目容器 */
+            position: relative;      /* 定位方式：相對定位，為內部絕對定位元素提供參照 */
+            overflow: hidden;        /* 溢出處理：隱藏，裁切超出容器的內容 */
+            margin-bottom: 30px; /* 下方外距：30px */
+            border-radius: 5px;      /* 圓角：5px，四個角都是圓角 */
+        } /* project-item 樣式結束 */
+        .project-item img { /* 專案圖片 */
+            width: 100%; /* 寬度：100% 填滿容器 */
+            transition: 0.3s; /* 過渡動畫：0.3 秒 */
+        } /* img 樣式結束 */
+        /* 專案項目的懸停遮罩層：預設隱藏，滑鼠移入時顯示 */
+        .project-overlay { /* 專案遮罩層 */
+            position: absolute; /* 定位方式：絕對定位，相對於 project-item */
+            top: 0; left: 0; right: 0; bottom: 0; /* 上下左右都為 0，覆蓋整個父容器 */
+            background: rgba(0, 105, 217, 0.9); /* 背景色：90% 不透明度的藍色遮罩 (rgba) */
+            display: flex; /* 顯示方式：彈性盒子布局 */
+            flex-direction: column;   /* Flex 方向：垂直排列子元素（由上到下） */
+            align-items: center;      /* 交叉軸對齊：置中（水平置中） */
+            justify-content: center;  /* 主軸對齊：置中（垂直置中） */
+            opacity: 0;               /* 不透明度：0，完全透明（預設隱藏） */
+            transition: 0.3s;         /* 過渡動畫：0.3 秒，產生漸變效果 */
+            color: white; /* 文字顏色：白色 */
+        } /* project-overlay 樣式結束 */
+        /* 滑鼠移入時顯示遮罩 */
+        .project-item:hover .project-overlay { opacity: 1; } /* 懸停時不透明度變為 1，完全顯示 */
+
+        /* ========================================
+           關於我們區塊樣式 (About Us)
+           介紹公司背景與優勢
+           ======================================== */
+        .about-section { background-color: var(--light-bg); } /* 關於我們區塊：背景色使用淺灰變數 (#f8f9fa) */
+        .about-img { /* 關於我們的圖片 */
+            border-radius: 5px; /* 圓角：5px */
+            box-shadow: 20px 20px 0px var(--primary-color); /* 陰影：右下偏移 20px，無模糊，企業藍色，產生裝飾效果 */
+        } /* about-img 樣式結束 */
+
+        /* ========================================
+           聯絡表單樣式 (Contact Form)
+           訪客可透過此表單與公司聯繫
+           ======================================== */
+        .contact-section { background: white; } /* 聯絡區塊：白色背景 */
+        .form-control { /* 表單輸入控制元件 */
+            padding: 15px;           /* 內距：四周各 15px，增加輸入框內部空間 */
+            border-radius: 10;        /* 圓角半徑：10px（原註解有誤，實際有圓角） */
+            background: #f8f9fa;     /* 背景色：淺灰色 */
+            border: 1px solid #eee;  /* 邊框：1px 實線，淺灰色 */
+        } /* form-control 樣式結束 */
+        .form-control:focus { /* 輸入框獲得焦點時的樣式 */
+            box-shadow: none; /* 陰影：無，移除預設的焦點陰影 */
+            border-color: var(--primary-color); /* 邊框顏色：變為企業藍色 */
+            background: white; /* 背景色：變為白色 */
+        } /* focus 樣式結束 */
+        .btn-submit { /* 提交按鈕樣式 */
+            background: var(--primary-color); /* 背景色：企業藍色 */
+            color: white; /* 文字顏色：白色 */
+            padding: 15px 40px; /* 內距：上下 15px，左右 40px */
+            border: none; /* 邊框：無 */
+            text-transform: uppercase; /* 文字轉換：全部大寫 */
+            font-weight: bold; /* 字體粗細：粗體 */
+            letter-spacing: 1px; /* 字母間距：1px */
+            transition: 0.3s; /* 過渡動畫：0.3 秒 */
+        } /* btn-submit 樣式結束 */
+        .btn-submit:hover { background: #0056b3; } /* 按鈕懸停時：背景變為深藍色 */
+
+        /* ========================================
+           頁尾樣式 (Footer)
+           包含公司資訊、快速連結、訂閱表單
+           ======================================== */
+        footer { /* 頁尾區塊 */
+            background: #494949;  /* 背景色：深灰色 (#494949) */
+            color: #000000;          /* 文字顏色：黑色（原註解為灰色，實際為黑色） */
+            padding: 60px 0 20px; /* 內距：上 60px，左右 0，下 20px */
+        } /* footer 樣式結束 */
+        footer h4 { color: white; margin-bottom: 25px; } /* 頁尾標題：白色文字，下方外距 25px */
+        footer a { /* 頁尾連結 */
+            color: #aaa; /* 文字顏色：淺灰色 */
+            text-decoration: none; /* 文字裝飾：無底線 */
+            display: block; /* 顯示方式：塊級元素，獨占一行 */
+            margin-bottom: 10px; /* 下方外距：10px */
+            transition: 0.3s; /* 過渡動畫：0.3 秒 */
+        } /* footer a 樣式結束 */
+        footer a:hover { /* 頁尾連結懸停狀態 */
+            color: var(--primary-color); /* 文字顏色：變為企業藍色 */
+            padding-left: 5px; /* 左側內距：5px，產生向右移動效果 */
+        } /* hover 樣式結束 */
+        .footer-bottom { /* 頁尾底部區塊 */
+            border-top: 1px solid #333; /* 上邊框：1px 實線深灰色 */
+            margin-top: 40px; /* 上方外距：40px */
+            padding-top: 20px; /* 上方內距：20px */
+            text-align: center; /* 文字對齊：置中 */
+        } /* footer-bottom 樣式結束 */
+
+        /* ========================================
+           響應式設計 (Responsive)
+           針對平板與手機的畫面調整
+           ======================================== */
+        @media (max-width: 768px) { /* 媒體查詢：當螢幕寬度小於等於 768px 時（平板與手機） */
+            .carousel-caption h1 { font-size: 2rem; }  /* 輪播標題：字體縮小至 2rem（約 32px） */
+            .stat-number { font-size: 2rem; }          /* 統計數字：字體縮小至 2rem */
+        } /* 媒體查詢結束 */
+    </style> <!-- CSS 樣式區塊結束 -->
+</head> <!-- 網頁頭部區塊結束 -->
+
+<body> <!-- 網頁主體開始 -->
+
+    <!-- ========================================
+         導航欄區塊 (Navigation Bar)
+         固定於頁面頂部的導航選單
+         ======================================== -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav"> <!-- 導航欄：Bootstrap 樣式、大螢幕可展開、固定於頂部、ID 為 mainNav -->
+        <div class="container"> <!-- Bootstrap 容器，自動調整寬度並置中 -->
+            <a class="navbar-brand" href="#">BOSS <span>DESIGN</span></a> <!-- 品牌 Logo/名稱，點擊回到頂部，span 用於紅色強調 -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"> <!-- 手機版選單切換按鈕 -->
+                <span class="navbar-toggler-icon"></span> <!-- 漢堡選單圖示 -->
+            </button> <!-- 按鈕結束 -->
+            <div class="collapse navbar-collapse" id="navbarContent"> <!-- 可折疊的導航選單內容區 -->
+                <ul class="navbar-nav ms-auto"> <!-- 導航選單列表，ms-auto 使其靠右對齊 -->
+                    <li class="nav-item"><a class="nav-link active" href="#home">主頁</a></li> <!-- 導航項目：首頁，active 表示當前頁面 -->
+                    <li class="nav-item"><a class="nav-link" href="#products">產品</a></li> <!-- 導航項目：產品頁 -->
+                    <li class="nav-item"><a class="nav-link" href="#projects">專案</a></li> <!-- 導航項目：專案頁 -->
+                    <li class="nav-item"><a class="nav-link" href="#about">關於我們</a></li> <!-- 導航項目：關於我們 -->
+                    <li class="nav-item"><a class="nav-link" href="#contact">聯絡我們</a></li> <!-- 導航項目：聯絡我們 -->
+                </ul> <!-- 導航列表結束 -->
+            </div> <!-- 折疊內容區結束 -->
+        </div> <!-- 容器結束 -->
+    </nav> <!-- 導航欄結束 -->
+
+    <!-- ========================================
+         首頁輪播橫幅 (Hero Carousel)
+         自動輪播的全螢幕圖片展示區
+         ======================================== -->
+    <header id="home" class="carousel slide" data-bs-ride="carousel" data-bs-interval="10000"> <!-- 首頁輪播標籤：ID 為 home，Bootstrap 輪播樣式，自動輪播，每 5000 毫秒（5秒）切換一次 -->
+        <div class="carousel-indicators"> <!-- 輪播指示器容器（底部小點點） -->
+            <button type="button" data-bs-target="#home" data-bs-slide-to="0" class="active"></button> <!-- 第一張圖的指示器按鈕，active 表示當前顯示 -->
+            <button type="button" data-bs-target="#home" data-bs-slide-to="1"></button> <!-- 第二張圖的指示器按鈕 -->
+        </div> <!-- 指示器容器結束 -->
+        <div class="carousel-inner"> <!-- 輪播內容容器，包含所有輪播項目 -->
+            <div class="carousel-item active" style="background-image: url('')"> <!-- 第一個輪播項目，active 表示預設顯示，背景圖片為 S__4833364.jpg -->
+                <div class="carousel-overlay"></div> <!-- 半透明黑色遮罩層，增強文字可讀性 -->
+                <div class="carousel-caption"> <!-- 輪播文字說明區 -->
+                    <div class="container"> <!-- Bootstrap 容器 -->
+                        <h1 class="animate-up">ooooooooooooo+圖片</h1> <!-- 主標題：全球聲學解決方案 -->
+                        <p class="lead">小標</p> <!-- 引導文字（lead 類別使字體較大） -->
+                        <a href="#products" class="btn btn-outline-light btn-lg mt-3 rounded-5">查看更多</a> <!-- 按鈕：查看產品，主要顏色、大尺寸、上方外距 3、無圓角 -->
+                    </div> <!-- 容器結束 -->
+                </div> <!-- 說明區結束 -->
+            </div> <!-- 第一個輪播項目結束 -->
+            <div class="carousel-item" style="background-image: url('')"> <!-- 第二個輪播項目，背景圖片為 S__4833352_0.jpg -->
+                <div class="carousel-overlay"></div> <!-- 半透明黑色遮罩層 -->
+                <div class="carousel-caption"> <!-- 輪播文字說明區 -->
+                    <div class="container"> <!-- Bootstrap 容器 -->
+                        <h1>ooooooooooooo+圖片</h1> <!-- 主標題：STC 等級高達 45 分貝 -->
+                        <p class="lead">小標</p> <!-- 引導文字 -->
+                        <a href="#contact" class="btn btn-outline-light btn-lg mt-3 rounded-5">聯絡我們</a> <!-- 按鈕：聯繫我們，白色輪廓、大尺寸、上方外距 3、無圓角 -->
+                    </div> <!-- 容器結束 -->
+                </div> <!-- 說明區結束 -->
+            </div> <!-- 第二個輪播項目結束 -->
+        </div> <!-- 輪播內容容器結束 -->
+    </header> <!-- 輪播標題區結束 -->
+
+    <!-- ========================================
+         統計數據區塊 (Statistics Section)
+         展示公司年資、專案數、隔音等級等數據
+         具有數字跳動動畫效果
+         ======================================== -->
+    <section class="stats-section"> <!-- 統計數據區塊，藍色背景 -->
+        <div class="container"> <!-- Bootstrap 容器 -->
+            <div class="row"> <!-- Bootstrap 行，包含多個欄位 -->
+                <div class="col-md-3 stat-item"> <!-- 第一個統計項目，中等螢幕以上佔 1/4 寬度 -->
+                    <div class="stat-number" data-target="20">0</div> <!-- 統計數字，目標值 20，起始值 0，用於 JavaScript 動畫 -->
+                    <div class="stat-label">Years Experience</div> <!-- 統計標籤：年資 -->
+                </div> <!-- 第一個統計項目結束 -->
+                <div class="col-md-3 stat-item"> <!-- 第二個統計項目 -->
+                    <div class="stat-number" data-target="500">0</div> <!-- 統計數字，目標值 500 -->
+                    <div class="stat-label">Projects Done</div> <!-- 統計標籤：完成專案數 -->
+                </div> <!-- 第二個統計項目結束 -->
+                <div class="col-md-3 stat-item"> <!-- 第三個統計項目 -->
+                    <div class="stat-number" data-target="45">0</div> <!-- 統計數字，目標值 45 -->
+                    <div class="stat-label">dB Sound Proof</div> <!-- 統計標籤：分貝隔音等級 -->
+                </div> <!-- 第三個統計項目結束 -->
+                <div class="col-md-3 stat-item"> <!-- 第四個統計項目 -->
+                    <div class="stat-number" data-target="100">0</div> <!-- 統計數字，目標值 100 -->
+                    <div class="stat-label">COUNTRIES</div> <!-- 統計標籤：國家數量 -->
+                </div> <!-- 第四個統計項目結束 -->
+            </div> <!-- 行結束 -->
+        </div> <!-- 容器結束 -->
+    </section> <!-- 統計數據區塊結束 -->
+
+    <!-- ========================================
+         產品展示區塊 (Products Section)
+         展示公司主要產品（雙層玻璃、單層玻璃、隔音門）
+         ======================================== -->
+    <section id="products" class="section-padding"> <!-- 產品展示區塊，ID 為 products，上下內距 80px -->
+        <div class="container"> <!-- Bootstrap 容器 -->
+            <div class="section-header"> <!-- 區塊標題容器 -->
+                <h2>產品介紹</h2> <!-- 主標題：我們的產品 -->
+                <p class="text-muted">小標</p>
+                <div class="line"></div> <!-- 裝飾用藍色細線 -->
+                <!-- 副標題：高端隔間與門系統，text-muted 使文字顏色變淡 -->
+            </div> <!-- 標題容器結束 -->
+            <div class="row"> <!-- Bootstrap 行，包含產品卡片 -->
+                <div class="col-lg-4 col-md-6"> <!-- 第一個產品欄位：大螢幕 1/3 寬度，中等螢幕 1/2 寬度 -->
+                    <div class="product-card"> <!-- 產品卡片容器 -->
+                        <div class="product-img-box"> <!-- 產品圖片容器，高度 250px -->
+                            <img src="S__4833352_0.jpg" alt="Product"> <!-- 產品圖片，alt 屬性為圖片替代文字 -->
+                        </div> <!-- 圖片容器結束 -->
+                        <div class="product-body"> <!-- 產品內容區，內距 25px，文字置中 -->
+                            <h4>品名1</h4> <!-- 產品名稱 -->
+                            <p class="text-muted small">ooooooooooooo</p> <!-- 產品圖片（注釋：照片） -->
+                            <a href="#" class="btn btn-outline-primary btn-sm rounded-0">更多</a> <!-- 「了解更多」按鈕，藍色輪廓、小尺寸、無圓角 -->
+                        </div> <!-- 內容區結束 -->
+                    </div> <!-- 產品卡片結束 -->
+                </div> <!-- 第一個產品欄位結束 -->
+                <div class="col-lg-4 col-md-6"> <!-- 第二個產品欄位 -->
+                    <div class="product-card"> <!-- 產品卡片容器 -->
+                        <div class="product-img-box"> <!-- 產品圖片容器 -->
+                            <img src="S__4833352_0.jpg" alt="Product"> <!-- 產品圖片（注釋：照片） -->
+                        </div> <!-- 圖片容器結束 -->
+                        <div class="product-body"> <!-- 產品內容區 -->
+                            <h4>品名2</h4> <!-- 產品名稱 2 -->
+                            <p class="text-muted small">oooooooooooooooo</p> <!-- 產品描述：輕薄外型，最大透明度 -->
+                            <a href="#" class="btn btn-outline-primary btn-sm rounded-0">更多</a> <!-- 「了解更多」按鈕 -->
+                        </div> <!-- 內容區結束 -->
+                    </div> <!-- 產品卡片結束 -->
+                </div> <!-- 第二個產品欄位結束 -->
+                <div class="col-lg-4 col-md-6"> <!-- 第三個產品欄位 -->
+                    <div class="product-card"> <!-- 產品卡片容器 -->
+                        <div class="product-img-box"> <!-- 產品圖片容器 -->
+                            <img src="S__4833352_0.jpg" alt="Product"> <!-- 產品圖片（注釋：照片） -->
+                        </div> <!-- 圖片容器結束 -->
+                        <div class="product-body"> <!-- 產品內容區 -->
+                            <h4>品名3</h4> <!-- 產品名稱 3 -->
+                            <p class="text-muted small">oooooooooo</p> <!-- 產品描述：推拉門解決方案 -->
+                            <a href="#" class="btn btn-outline-primary btn-sm rounded-0">更多</a> <!-- 「了解更多」按鈕 -->
+                        </div> <!-- 內容區結束 -->
+                    </div> <!-- 產品卡片結束 -->
+                </div> <!-- 第三個產品欄位結束 -->
+            </div> <!-- 行結束 -->
+        </div> <!-- 容器結束 -->
+    </section> <!-- 產品展示區塊結束 -->
+
+    <!-- ========================================
+         專案作品集區塊 (Projects Portfolio)
+         展示已完成的專案案例
+         點擊可開啟 Modal 查看詳細資訊
+         ======================================== -->
+    <section id="projects" class="section-padding bg-light"> <!-- 專案作品集區塊，ID 為 projects，上下內距 80px，淺灰背景 -->
+        <div class="container"> <!-- Bootstrap 容器 -->
+            <div class="section-header"> <!-- 區塊標題容器 -->
+                <h2>最新專案</h2> <!-- 主標題：最新專案 -->
+                <p class="text-muted">小標</p>
+                <div class="line"></div> <!-- 裝飾用藍色細線 -->
+            </div> <!-- 標題容器結束 -->
+            <div class="row g-3"> <!-- Bootstrap 行，間距為 3（1rem） -->
+                <div class="col-md-4"> <!-- 第一個專案欄位，中等螢幕以上佔 1/3 寬度 -->
+                    <div class="project-item" data-bs-toggle="modal" data-bs-target="#projectModal"> <!-- 專案項目容器，點擊時開啟 ID 為 projectModal 的彈出視窗 -->
+                        <img src="S__4833350_0.jpg" alt="Project 1"> <!-- 專案圖片 -->
+                        <div class="project-overlay"> <!-- 懸停遮罩層，預設隱藏 -->
+                            <h5>Oooooooooooo</h5> <!-- 專案名稱：辦公室升級 -->
+                            <p>place</p> <!-- 專案地點：中國廣州 -->
+                            <i class="fas fa-plus-circle fa-2x"></i> <!-- Font Awesome 加號圓形圖示，2倍大小 -->
+                        </div> <!-- 遮罩層結束 -->
+                    </div> <!-- 專案項目容器結束 -->
+                </div> <!-- 第一個專案欄位結束 -->
+                <div class="col-md-4"> <!-- 第二個專案欄位 -->
+                    <div class="project-item" data-bs-toggle="modal" data-bs-target="#projectModal"> <!-- 專案項目容器 -->
+                        <img src="S__4833351_0.jpg" alt="Project 2"> <!-- 專案圖片 -->
+                        <div class="project-overlay"> <!-- 懸停遮罩層 -->
+                            <h5>ooooooooooo</h5> <!-- 專案名稱：會議室 -->
+                            <p>place2</p> <!-- 專案地點：中國上海 -->
+                            <i class="fas fa-plus-circle fa-2x"></i> <!-- 加號圖示 -->
+                        </div> <!-- 遮罩層結束 -->
+                    </div> <!-- 專案項目容器結束 -->
+                </div> <!-- 第二個專案欄位結束 -->
+                <div class="col-md-4"> <!-- 第三個專案欄位 -->
+                    <div class="project-item" data-bs-toggle="modal" data-bs-target="#projectModal"> <!-- 專案項目容器 -->
+                        <img src="S__4833350_0.jpg" alt="Project 3"> <!-- 專案圖片 -->
+                        <div class="project-overlay"> <!-- 懸停遮罩層 -->
+                            <h5>oooooooooooooooo</h5> <!-- 專案名稱：共享辦公空間 -->
+                            <p>place3</p> <!-- 專案地點：中國深圳 -->
+                            <i class="fas fa-plus-circle fa-2x"></i> <!-- 加號圖示 -->
+                        </div> <!-- 遮罩層結束 -->
+                    </div> <!-- 專案項目容器結束 -->
+                </div> <!-- 第三個專案欄位結束 -->
+            </div> <!-- 行結束 -->
+        </div> <!-- 容器結束 -->
+    </section> <!-- 專案作品集區塊結束 -->
+
+    <!-- ========================================
+         關於我們區塊 (About Us Section)
+         介紹公司歷史、理念與認證資訊
+         ======================================== -->
+    <section id="about" class="section-padding"> <!-- 關於我們區塊，ID 為 about，上下內距 80px -->
+        <div class="container"> <!-- Bootstrap 容器 -->
+            <div class="section-header"> <!-- 區塊標題容器 -->
+                <h2>關於我們</h2> <!-- 主標題：關於我們 -->
+                <div class="line"></div> <!-- 裝飾用藍色細線 -->
+            </div> <!-- 標題容器結束 -->
+            <div class="row align-items-center"> <!-- Bootstrap 行，垂直置中對齊 -->
+                <div class="col-lg-6"> <!-- 左側欄位，大螢幕佔 1/2 寬度 -->
+                    <img src="S__4833350_0.jpg" class="img-fluid about-img" alt="About Us"> <!-- 關於我們的圖片，img-fluid 使圖片響應式，about-img 添加特殊樣式和陰影 -->
+                </div> <!-- 左側欄位結束 -->
+                <div class="col-lg-6 ps-lg-5 mt-4 mt-lg-0"> <!-- 右側欄位，大螢幕左側內距 3rem，小螢幕上方外距 1.5rem，大螢幕上方外距 0 -->
+                    <h2 class="mb-4 font-weight-bold">We Are TRL Acoustic</h2> <!-- 主標題：我們是 TRL Acoustic，下方外距 1.5rem，粗體 -->
+                    <p class="lead text-muted">Dedicated to providing comprehensive acoustic solutions for global clients.</p> <!-- 引導文字，灰色 -->
+                    <p>Since our establishment, we have focused on the research and development of partition systems. Our products meet diverse application scenarios, including offices, hotels, and commercial spaces.</p> <!-- 段落文字 -->
+                    <ul class="list-unstyled mt-4"> <!-- 無項目符號列表，上方外距 1.5rem -->
+                        <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> ISO 9001 Certified</li> <!-- 列表項目 1，下方外距 0.5rem，藍色打勾圖示 -->
+                        <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Custom Design Capabilities</li> <!-- 列表項目 2 -->
+                        <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Global Installation Support</li> <!-- 列表項目 3 -->
+                    </ul> <!-- 列表結束 -->
+                </div> <!-- 右側欄位結束 -->
+            </div> <!-- 行結束 -->
+        </div> <!-- 容器結束 -->
+    </section> <!-- 關於我們區塊結束 -->
+
+    <!-- ========================================
+         聯絡我們區塊 (Contact Section)
+         包含公司聯絡資訊與聯絡表單
+         ======================================== -->
+    <section id="contact" class="section-padding bg-light"> <!-- 聯絡我們區塊，ID 為 contact，上下內距 80px，淺灰背景 -->
+        <div class="container"> <!-- Bootstrap 容器 -->
+            <div class="section-header"> <!-- 區塊標題容器 -->
+                <h2>聯絡我們</h2> <!-- 主標題：與我們聯繫 -->
+                <div class="line"></div> <!-- 裝飾用藍色細線 -->
+            </div> <!-- 標題容器結束 -->
+            <div class="row"> <!-- Bootstrap 行 -->
+                <div class="col-lg-5 mb-5"> <!-- 左側欄位，大螢幕佔 5/12 寬度，下方外距 3rem -->
+                    <div class="d-flex mb-4"> <!-- Flex 容器，下方外距 1.5rem -->
+                        <div class="text-primary h4 me-3"><i class="fas fa-map-marker-alt"></i></div> <!-- 圖示區：藍色、h4 字體大小、右側外距 1rem，地址圖示 -->
+                        <div> <!-- 文字區 -->
+                            <h5>地址</h5> <!-- 標題：地址 -->
+                            <p class="text-muted">臺中市西屯區00000</p> <!-- 地址資訊，灰色文字 -->
+                        </div> <!-- 文字區結束 -->
+                    </div> <!-- Flex 容器結束 -->
+                    <div class="d-flex mb-4"> <!-- 第二個 Flex 容器 -->
+                        <div class="text-primary h4 me-3"><i class="fas fa-phone-alt"></i></div> <!-- 電話圖示 -->
+                        <div> <!-- 文字區 -->
+                            <h5>電話</h5> <!-- 標題：電話 -->
+                            <p class="text-muted">+886 00000000000</p> <!-- 電話號碼 -->
+                        </div> <!-- 文字區結束 -->
+                    </div> <!-- Flex 容器結束 -->
+                    <div class="d-flex mb-4"> <!-- 第三個 Flex 容器 -->
+                        <div class="text-primary h4 me-3"><i class="fas fa-envelope"></i></div> <!-- 信封圖示 -->
+                        <div> <!-- 文字區 -->
+                            <h5>Email</h5> <!-- 標題：電子郵件 -->
+                            <p class="text-muted">00000@0000000.com</p> <!-- 郵箱地址 -->
+                        </div> <!-- 文字區結束 -->
+                    </div> <!-- Flex 容器結束 -->
+                </div> <!-- 左側欄位結束 -->
+                <div class="col-lg-7"> <!-- 右側欄位，大螢幕佔 7/12 寬度 -->
+                    <form id="contactForm"> <!-- 聯絡表單，ID 為 contactForm，用於 JavaScript 處理 -->
+                        <div class="row"> <!-- Bootstrap 行，包含水平排列的輸入框 -->
+                            <div class="col-md-6 mb-3"> <!-- 第一個輸入欄位，中等螢幕以上佔 1/2 寬度，下方外距 1rem -->
+                                <input type="text" class="form-control" placeholder="您的姓名" required> <!-- 文字輸入框：姓名，必填欄位 -->
+                            </div> <!-- 欄位結束 -->
+                            <div class="col-md-6 mb-3"> <!-- 第二個輸入欄位 -->
+                                <input type="email" class="form-control" placeholder="您的Email" required> <!-- 郵件輸入框，必填 -->
+                            </div> <!-- 欄位結束 -->
+                        </div> <!-- 行結束 -->
+                        <div class="mb-3"> <!-- 主旨輸入欄位 -->
+                            <input type="text" class="form-control" placeholder="主旨"> <!-- 文字輸入框：主旨，非必填 -->
+                        </div> <!-- 欄位結束 -->
+                        <div class="mb-3"> <!-- 訊息輸入欄位 -->
+                            <textarea class="form-control" rows="5" placeholder="訊息內容" required></textarea> <!-- 多行文字輸入框：訊息內容，5 行高，必填 -->
+                        </div> <!-- 欄位結束 -->
+                        <button type="submit" class="btn btn-submit">傳送訊息</button> <!-- 提交按鈕：傳送訊息 -->
+                    </form> <!-- 表單結束 -->
+                </div> <!-- 右側欄位結束 -->
+            </div> <!-- 行結束 -->
+        </div> <!-- 容器結束 -->
+    </section> <!-- 聯絡我們區塊結束 -->
+
+    <!-- ========================================
+         頁尾區塊 (Footer)
+         包含公司簡介、快速連結、產品列表、訂閱功能
+         ======================================== -->
+    <footer> <!-- 頁尾區塊開始，深灰色背景 -->
+        <div class="container"> <!-- Bootstrap 容器 -->
+            <div class="row"> <!-- Bootstrap 行 -->
+                <div class="col-lg-4 mb-4"> <!-- 第一欄：公司簡介，大螢幕佔 1/3 寬度，下方外距 1.5rem -->
+                    <h4 class="text-white">BOSS DESIGN</h4> <!-- 公司名稱，白色文字 -->
+                    <p>公司簡介</p> <!-- 公司簡介 -->
+                </div> <!-- 第一欄結束 -->
+                <div class="col-lg-2 mb-4"> <!-- 第二欄：快速連結，大螢幕佔 1/6 寬度 -->
+                    <h4>快速連結</h4> <!-- 區塊標題 -->
+                    <a href="#home">首頁</a> <!-- 連結：首頁 -->
+                    <a href="#products">產品</a> <!-- 連結：產品 -->
+                    <a href="#projects">最新專案</a> <!-- 連結：產品 -->
+                    <a href="#about">關於我們</a> <!-- 連結：關於我們 -->
+                </div> <!-- 第二欄結束 -->
+                <div class="col-lg-2 mb-4"> <!-- 第三欄：產品列表 -->
+                    <h4>Products</h4> <!-- 區塊標題 -->
+                    <a href="#">品名1</a> <!-- 連結：雙層玻璃 -->
+                    <a href="#">品名2</a> <!-- 連結：單層玻璃 -->
+                    <a href="#">品名3</a> <!-- 連結：門 -->
+                </div> <!-- 第三欄結束 -->
+                <div class="col-lg-4 mb-4"> <!-- 第四欄：訂閱功能，大螢幕佔 1/3 寬度 -->
+                    <h4>Newsletter</h4> <!-- 區塊標題 -->
+                    <form class="d-flex"> <!-- Flex 表單，水平排列 -->
+                        <input type="email" class="form-control me-2" placeholder="Email"> <!-- 郵件輸入框，右側外距 0.5rem -->
+                        <button class="btn btn-primary">Subscribe</button> <!-- 訂閱按鈕 -->
+                    </form> <!-- 表單結束 -->
+                </div> <!-- 第四欄結束 -->
+            </div> <!-- 行結束 -->
+            <div class="footer-bottom"> <!-- 頁尾底部區塊，有上邊框分隔線 -->
+                <p>&copy; ooooooooooooooooooooooooooooooooooooooooooo</p> <!-- 版權聲明文字 -->
+            </div> <!-- 底部區塊結束 -->
+        </div> <!-- 容器結束 -->
+    </footer> <!-- 頁尾區塊結束 -->
+
+    <!-- ========================================
+         專案詳情彈出視窗 (Project Detail Modal)
+         點擊專案圖片時彈出，顯示詳細資訊
+         ======================================== -->
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true"> <!-- Bootstrap 彈出視窗，ID 為 projectModal，淡入淡出動畫，tabindex 設為 -1，預設隱藏 -->
+        <div class="modal-dialog modal-lg modal-dialog-centered"> <!-- Modal 對話框：大尺寸、垂直置中 -->
+            <div class="modal-content"> <!-- Modal 內容容器 -->
+                <div class="modal-header"> <!-- Modal 標題區 -->
+                    <h5 class="modal-title">Project Details</h5> <!-- Modal 標題：專案詳情 -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button> <!-- 關閉按鈕 -->
+                </div> <!-- 標題區結束 -->
+                <div class="modal-body text-center"> <!-- Modal 主體區，文字置中 -->
+                    <img src="S__4833352_0.jpg" class="img-fluid mb-3" alt="Project Detail"> <!-- 專案詳細圖片，響應式，下方外距 1rem -->
+                    <p>Here is the detailed description of this specific project. It involves high-quality acoustic glass walls installed in a modern office environment.</p> <!-- 專案描述文字 -->
+                </div> <!-- 主體區結束 -->
+            </div> <!-- 內容容器結束 -->
+        </div> <!-- 對話框結束 -->
+    </div> <!-- Modal 結束 -->
+
+    <!-- 引入 Bootstrap JavaScript 函式庫 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap 5.3.0 JavaScript 檔案，包含 Popper.js，提供互動功能（如 Modal、Collapse 等） -->
+    
+    <!-- ========================================
+         自訂 JavaScript 功能
+         包含數字動畫、導航欄滾動效果、表單處理等
+         ======================================== -->
+    <script> <!-- JavaScript 程式碼區塊開始 -->
+        /* ========================================
+           數字動畫效果 (Number Animation)
+           當使用者滑動到統計區塊時，數字會從 0 開始跳動
+           使用 Intersection Observer API 偵測元素進入視窗
+           ======================================== */
+        const counters = document.querySelectorAll('.stat-number'); // 取得所有統計數字元素
+        const speed = 200; // 控制動畫速度，數字越大越慢
+
+        // 執行數字跳動動畫的函式
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target'); // 目標數值
+                    const count = +counter.innerText;                    // 當前顯示數值
+                    const inc = target / speed;                          // 每次遞增量
+
+                    // 如果尚未達到目標值，持續遞增
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc); // 無條件進位
+                        setTimeout(updateCount, 20);                 // 每 20ms 更新一次
+                    } else {
+                        // 達到目標值後停止
+                        counter.innerText = target;
+                        // 特殊處理：數字大於 100 時加上「+」號
+                        if(target > 100) counter.innerText = target + '+';
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        /* 使用 Intersection Observer API 偵測統計區塊是否進入視窗 */
+        let options = { threshold: 0.5 }; // 當 50% 的元素進入視窗時觸發
+        let observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {           // 如果元素進入視窗
+                    animateCounters();                 // 啟動數字動畫
+                    observer.unobserve(entry.target);  // 取消觀察，只執行一次
+                }
+            });
+        }, options);
+        // 開始觀察統計區塊
+        document.querySelectorAll('.stats-section').forEach(section => {
+            observer.observe(section);
+        });
+
+
+        /* ========================================
+           導航欄滾動效果 (Navbar Scroll Effect)
+           往下滾動時，導航欄高度縮小並增加陰影
+           ======================================== */
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            // 如果向下滾動超過 50 像素
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-sm');   // 增加陰影
+                navbar.style.padding = '10px 0';     // 縮小導航欄高度
+            } else {
+                navbar.classList.remove('shadow-sm'); // 移除陰影
+                navbar.style.padding = '15px 0';      // 恢復原始高度
+            }
+        });
+
+        /* ========================================
+           表單提交處理 (Form Submission)
+           防止表單實際提交，顯示感謝訊息後清空表單
+           ======================================== */
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // 阻止表單預設提交行為
+            alert('Thank you! We have received your message and will contact you shortly.');
+            this.reset();       // 清空表單欄位
+        });
+
+        /* ========================================
+           手機選單自動收合 (Mobile Menu Auto-close)
+           在手機版點擊導航連結後，自動收起選單
+           提升行動裝置使用體驗
+           ======================================== */
+        const navLinks = document.querySelectorAll('.nav-link');          // 所有導航連結
+        const menuToggle = document.getElementById('navbarContent');      // 選單容器
+        const bsCollapse = new bootstrap.Collapse(menuToggle, {toggle:false}); // Bootstrap 收合功能
+        
+        navLinks.forEach((l) => {
+            l.addEventListener('click', () => {
+                // 只有在手機版（寬度小於 992px）才執行收合
+                if(window.innerWidth < 992) {
+                    bsCollapse.hide(); // 收起選單
+                }
+            })
+        });
+
+    </script> <!-- JavaScript 程式碼區塊結束 -->
+</body> <!-- 網頁主體結束 -->
+</html> <!-- HTML 文件結束 -->
